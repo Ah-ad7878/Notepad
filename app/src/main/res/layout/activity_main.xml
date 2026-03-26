@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/note_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/note_it_all"
+        android:fontFamily="@font/slumber"
+        android:textSize="40sp"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toTopOf="@id/guideline_hori"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/started_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/get_started"
+        android:textColor="@color/white"
+        android:fontFamily="@font/bistron"
+        android:textSize="40sp"
+       android:backgroundTint="@color/btn_blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/guideline_Horizontal"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_Horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.80"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_hori"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

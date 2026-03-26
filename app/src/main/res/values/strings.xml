@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Notepad</string>
+    <string name="note_it_all">Note it all</string>
+    <string name="get_started">Get Started</string>
+    <string name="my_notes">My Notes</string>
+    <string name="search_notes">Search notes...</string>
+    <string name="add_note">Add Note</string>
+    <string name="title_hint">Title</string>
+    <string name="content_hint">Start typing...</string>
+    <string name="save">Save</string>
+</resources>

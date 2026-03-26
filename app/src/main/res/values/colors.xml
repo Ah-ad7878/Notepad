@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="blue">#89C5E9</color>
+    <color name="btn_blue">#304FFE</color>
+    <color name="gray_light">#F5F5F5</color>
+    <color name="gray_dark">#424242</color>
+    <color name="accent_orange">#FFAB40</color>
+
+    <!-- Note Colors -->
+    <color name="note_yellow">#FFF9C4</color>
+    <color name="note_pink">#F8BBD0</color>
+    <color name="note_green">#C8E6C9</color>
+    <color name="note_blue">#B3E5FC</color>
+    <color name="note_purple">#E1BEE7</color>
+    <color name="note_orange">#FFE0B2</color>
+    <color name="note_red">#FFCDD2</color>
+</resources>
