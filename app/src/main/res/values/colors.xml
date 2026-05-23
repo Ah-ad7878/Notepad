@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="blue">#89C5E9</color>
-    <color name="btn_blue">#304FFE</color>
-    <color name="gray_light">#F5F5F5</color>
-    <color name="gray_dark">#424242</color>
-    <color name="accent_orange">#FFAB40</color>
+    <color name="black">#1A1C1E</color>
+    <color name="white">#FFFFFF</color>
+    <color name="blue">#D1E4FF</color>
+    <color name="btn_blue">#005FB0</color>
+    <color name="gray_light">#F8F9FA</color>
+    <color name="gray_dark">#44474E</color>
+    <color name="accent_orange">#FFB900</color>
 
-    <!-- Note Colors -->
-    <color name="note_yellow">#FFF9C4</color>
-    <color name="note_pink">#F8BBD0</color>
-    <color name="note_green">#C8E6C9</color>
-    <color name="note_blue">#B3E5FC</color>
-    <color name="note_purple">#E1BEE7</color>
-    <color name="note_orange">#FFE0B2</color>
-    <color name="note_red">#FFCDD2</color>
+    <!-- Modern Pastel Note Colors -->
+    <color name="note_white">#FFFFFF</color>
+    <color name="note_red">#FFDAD6</color>
+    <color name="note_yellow">#FFF1AD</color>
+    <color name="note_pink">#FFD8E4</color>
+    <color name="note_green">#D1E9CF</color>
+    <color name="note_blue">#D1E4FF</color>
+    <color name="note_purple">#E9DDFF</color>
+    <color name="note_orange">#FFDCC0</color>
+
+    <color name="surface_variant">#E1E2EC</color>
+    <color name="on_surface_variant">#44474E</color>
 </resources>

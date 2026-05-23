@@ -5,10 +5,11 @@
     android:id="@+id/note_card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
+    android:layout_margin="6dp"
     app:cardCornerRadius="16dp"
-    app:cardElevation="2dp"
-    app:strokeWidth="0dp">
+    app:cardElevation="0dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="#10000000">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,10 +21,12 @@
             android:id="@+id/note_title_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/slumber"
+            android:fontFamily="sans-serif-medium"
             android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:maxLines="2"
+            android:ellipsize="end"/>
 
         <TextView
             android:id="@+id/note_desc_tv"
@@ -31,9 +34,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:ellipsize="end"
-            android:maxLines="6"
+            android:maxLines="8"
             android:textColor="@color/gray_dark"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:lineSpacingExtra="2dp"/>
 
         <TextView
             android:id="@+id/note_date_tv"
@@ -41,9 +45,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_marginTop="12dp"
-            android:alpha="0.6"
-            android:textColor="@color/black"
-            android:textSize="11sp" />
+            android:alpha="0.7"
+            android:textColor="@color/gray_dark"
+            android:textSize="11sp"
+            android:fontFamily="sans-serif-light"/>
 
     </LinearLayout>
 

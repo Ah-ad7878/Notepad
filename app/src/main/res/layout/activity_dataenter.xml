@@ -8,159 +8,180 @@
     android:background="@color/white"
     tools:context=".dataenter">
 
-    <ImageButton
-        android:id="@+id/back_btn"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="Back"
-        android:src="@android:drawable/ic_menu_revert"
-        app:layout_constraintStart_toStartOf="parent"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/black" />
+        android:background="@android:color/transparent">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/save_btn"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:fontFamily="@font/slumber"
-        android:text="@string/save"
-        android:textColor="@color/btn_blue"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@id/back_btn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/back_btn" />
+        <ImageButton
+            android:id="@+id/back_btn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Back"
+            android:src="@android:drawable/ic_menu_revert"
+            app:tint="@color/black" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/save_btn"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="8dp"
+            android:text="@string/save"
+            android:textColor="@color/btn_blue"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textAllCaps="false" />
+    </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
         android:fillViewport="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/back_btn">
+        app:layout_constraintBottom_toTopOf="@id/bottom_bar"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingHorizontal="24dp"
-            android:paddingBottom="100dp">
+            android:paddingTop="16dp">
 
             <EditText
                 android:id="@+id/note_title_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:background="@null"
-                android:fontFamily="@font/slumber"
+                android:fontFamily="sans-serif-medium"
                 android:hint="@string/title_hint"
                 android:importantForAutofill="no"
                 android:inputType="textCapSentences"
                 android:textColor="@color/black"
-                android:textColorHint="@color/gray_dark"
-                android:textSize="28sp"
+                android:textColorHint="@color/on_surface_variant"
+                android:textSize="24sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/current_date_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:alpha="0.5"
-                tools:text="October 24, 2023 10:30 AM"
+                android:layout_marginTop="8dp"
+                android:alpha="0.6"
                 android:textColor="@color/black"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                tools:text="October 24, 10:30 AM" />
 
             <EditText
                 android:id="@+id/note_content_et"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="20dp"
                 android:background="@null"
                 android:gravity="top"
                 android:hint="@string/content_hint"
                 android:importantForAutofill="no"
                 android:inputType="textMultiLine|textCapSentences"
-                android:minHeight="300dp"
+                android:lineSpacingExtra="4dp"
                 android:textColor="@color/black"
-                android:textColorHint="@color/gray_dark"
-                android:textSize="18sp" />
+                android:textColorHint="@color/on_surface_variant"
+                android:textSize="17sp" />
 
         </LinearLayout>
     </ScrollView>
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="wrap_content"
+        android:id="@+id/bottom_bar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        app:cardCornerRadius="28dp"
-        app:cardElevation="6dp"
-        app:strokeWidth="0dp"
+        app:cardElevation="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.BottomBar">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="56dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingHorizontal="12dp"
-            android:background="@color/white">
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:background="@color/white"
+            android:scrollbars="none">
 
-            <View
-                android:id="@+id/color_white"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginHorizontal="6dp"
-                android:background="@drawable/circle_color"
-                android:backgroundTint="@color/white" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="16dp">
 
-            <View
-                android:id="@+id/color_red"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginHorizontal="6dp"
-                android:background="@drawable/circle_color"
-                android:backgroundTint="@color/note_red" />
+                <View
+                    android:id="@+id/color_white"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginHorizontal="8dp"
+                    android:background="@drawable/circle_color"
+                    android:backgroundTint="@color/white"
+                    android:elevation="2dp" />
 
-            <View
-                android:id="@+id/color_yellow"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginHorizontal="6dp"
-                android:background="@drawable/circle_color"
-                android:backgroundTint="@color/note_yellow" />
+                <View
+                    android:id="@+id/color_red"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginHorizontal="8dp"
+                    android:background="@drawable/circle_color"
+                    android:backgroundTint="@color/note_red" />
 
-            <View
-                android:id="@+id/color_pink"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginHorizontal="6dp"
-                android:background="@drawable/circle_color"
-                android:backgroundTint="@color/note_pink" />
+                <View
+                    android:id="@+id/color_yellow"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginHorizontal="8dp"
+                    android:background="@drawable/circle_color"
+                    android:backgroundTint="@color/note_yellow" />
 
-            <View
-                android:id="@+id/color_green"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginHorizontal="6dp"
-                android:background="@drawable/circle_color"
-                android:backgroundTint="@color/note_green" />
+                <View
+                    android:id="@+id/color_pink"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginHorizontal="8dp"
+                    android:background="@drawable/circle_color"
+                    android:backgroundTint="@color/note_pink" />
 
-            <View
-                android:id="@+id/color_blue"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginHorizontal="6dp"
-                android:background="@drawable/circle_color"
-                android:backgroundTint="@color/note_blue" />
+                <View
+                    android:id="@+id/color_green"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginHorizontal="8dp"
+                    android:background="@drawable/circle_color"
+                    android:backgroundTint="@color/note_green" />
 
-        </LinearLayout>
+                <View
+                    android:id="@+id/color_blue"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginHorizontal="8dp"
+                    android:background="@drawable/circle_color"
+                    android:backgroundTint="@color/note_blue" />
+
+                <View
+                    android:id="@+id/color_purple"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginHorizontal="8dp"
+                    android:background="@drawable/circle_color"
+                    android:backgroundTint="@color/note_purple" />
+
+                <View
+                    android:id="@+id/color_orange"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginHorizontal="8dp"
+                    android:background="@drawable/circle_color"
+                    android:backgroundTint="@color/note_orange" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
     </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
