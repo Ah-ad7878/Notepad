@@ -11,6 +11,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -19,17 +23,20 @@ public class dataenter extends AppCompatActivity {
 
      ImageButton back_btn;
      Button save_btn;
-     View colorWhite, colorRed, colorYellow, colorPink, colorGreen, colorBlue;
+     View colorWhite, colorRed, colorYellow, colorPink, colorGreen, colorBlue, colorPurple, colorOrange;
      View mainLayout;
      TextView currentDateTv;
      EditText titleEt, contentEt;
     
     private int selectedColor;
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dataenter);
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("Notes");
 
         mainLayout = findViewById(R.id.main_layout);
         back_btn = findViewById(R.id.back_btn);
@@ -44,6 +51,8 @@ public class dataenter extends AppCompatActivity {
         colorPink = findViewById(R.id.color_pink);
         colorGreen = findViewById(R.id.color_green);
         colorBlue = findViewById(R.id.color_blue);
+        colorPurple = findViewById(R.id.color_purple);
+        colorOrange = findViewById(R.id.color_orange);
 
         selectedColor = Color.WHITE;
 
@@ -82,6 +91,14 @@ public class dataenter extends AppCompatActivity {
             selectedColor = ContextCompat.getColor(this, R.color.note_blue);
             mainLayout.setBackgroundColor(selectedColor);
         });
+        colorPurple.setOnClickListener(v -> {
+            selectedColor = ContextCompat.getColor(this, R.color.note_purple);
+            mainLayout.setBackgroundColor(selectedColor);
+        });
+        colorOrange.setOnClickListener(v -> {
+            selectedColor = ContextCompat.getColor(this, R.color.note_orange);
+            mainLayout.setBackgroundColor(selectedColor);
+        });
 
         save_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,14 +111,27 @@ public class dataenter extends AppCompatActivity {
                     return;
                 }
 
+                long time = System.currentTimeMillis();
                 Intent intent = new Intent();
                 intent.putExtra("title", title);
                 intent.putExtra("description", content);
                 intent.putExtra("color", selectedColor);
-                intent.putExtra("time", System.currentTimeMillis());
-                
-                setResult(RESULT_OK, intent);
-                finish();
+                intent.putExtra("time", time);
+
+                // Save to Firebase
+                String id = databaseReference.push().getKey();
+                Notes note = new Notes(title, content, selectedColor, time);
+                if (id != null) {
+                    databaseReference.child(id).setValue(note)
+                            .addOnSuccessListener(aVoid -> {
+                                Toast.makeText(dataenter.this, "Note saved", Toast.LENGTH_SHORT).show();
+                                setResult(RESULT_OK, intent);
+                                finish();
+                            })
+                            .addOnFailureListener(e -> {
+                                Toast.makeText(dataenter.this, "Failed to save: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            });
+                }
             }
         });
     }

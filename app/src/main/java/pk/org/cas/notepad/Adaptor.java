@@ -1,17 +1,20 @@
 package pk.org.cas.notepad;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -26,6 +29,7 @@ public class Adaptor extends RecyclerView.Adapter<Adaptor.ProductViewHolder>{
         this.notesList = notesList;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void filterList(List<Notes> filteredList) {
         this.notesList = filteredList;
         notifyDataSetChanged();
@@ -42,12 +46,19 @@ public class Adaptor extends RecyclerView.Adapter<Adaptor.ProductViewHolder>{
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         Notes notes = notesList.get(position);
         
-        holder.note_title_tv.setText(notes.getTitle());
-        holder.note_desc_tv.setText(notes.getDescription());
+        String title = notes.getTitle();
+        String desc = notes.getDescription();
+        
+        holder.note_title_tv.setText(title != null && !title.isEmpty() ? title : "Untitled Note");
+        holder.note_desc_tv.setText(desc != null && !desc.isEmpty() ? desc : "No content");
 
-        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
-        String dateString = sdf.format(new Date(notes.getTime()));
-        holder.note_date_tv.setText(dateString);
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
+            String dateString = sdf.format(new Date(notes.getTime()));
+            holder.note_date_tv.setText(dateString);
+        } catch (Exception e) {
+            holder.note_date_tv.setText("No date");
+        }
 
         holder.itemView.setOnClickListener(v -> {
             Context context = v.getContext();
@@ -59,12 +70,36 @@ public class Adaptor extends RecyclerView.Adapter<Adaptor.ProductViewHolder>{
             context.startActivity(intent);
         });
 
-        // Correctly set the card background color
-        if (notes.getColour() != 0 && notes.getColour() != -1) {
-            holder.note_card.setCardBackgroundColor(notes.getColour());
+        holder.itemView.setOnLongClickListener(view -> {
+            int currentPosition = holder.getBindingAdapterPosition();
+            if (currentPosition != RecyclerView.NO_POSITION) {
+                Notes noteToDelete = notesList.get(currentPosition);
+                String noteId = noteToDelete.getId();
+
+                if (noteId != null) {
+                    FirebaseDatabase.getInstance().getReference("Notes")
+                            .child(noteId).removeValue()
+                            .addOnSuccessListener(aVoid -> Toast.makeText(view.getContext(), "Note Deleted", Toast.LENGTH_SHORT).show())
+                            .addOnFailureListener(e -> Toast.makeText(view.getContext(), "Delete Failed", Toast.LENGTH_SHORT).show());
+                } else {
+
+                    notesList.remove(currentPosition);
+                    notifyItemRemoved(currentPosition);
+                    notifyItemRangeChanged(currentPosition, notesList.size());
+                    Toast.makeText(view.getContext(), "Note Deleted Locally", Toast.LENGTH_SHORT).show();
+                }
+            }
+            return true;
+        });
+
+        int color = notes.getColour();
+        if (color != 0 && color != -1) {
+            holder.note_card.setCardBackgroundColor(color);
         } else {
             holder.note_card.setCardBackgroundColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.white));
         }
+        
+        android.util.Log.d("Notepad", "Binding note at " + position + ": " + title);
     }
 
     @Override

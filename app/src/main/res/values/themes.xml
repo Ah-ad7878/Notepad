@@ -6,4 +6,17 @@
     </style>
 
     <style name="Theme.Notepad" parent="Base.Theme.Notepad" />
+
+    <style name="ShapeAppearanceOverlay.App.BottomBar" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">24dp</item>
+        <item name="cornerSizeTopRight">24dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+    </style>
+
+    <style name="Theme.Notepad.SearchView" parent="">
+        <item name="android:editTextColor">@color/black</item>
+        <item name="android:textColorHint">@color/gray_dark</item>
+    </style>
 </resources>

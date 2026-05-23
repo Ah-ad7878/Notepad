@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="pk.org.cas.notepad" />
+                  <option name="mobileSdkAppId" value="1:167779497115:android:459b937ef03b4502b7423e" />
+                  <option name="projectId" value="notepad-9ad6c" />
+                  <option name="projectNumber" value="167779497115" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
