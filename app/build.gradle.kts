@@ -37,8 +37,10 @@ android {
 }
 
 dependencies {
+    implementation(libs.activity.ktx)
     implementation(libs.appcompat)
     implementation(libs.firebase.database)
+    implementation(libs.firebase.auth)
     implementation(libs.firebase.storage)
     implementation(libs.material)
     implementation(libs.activity)

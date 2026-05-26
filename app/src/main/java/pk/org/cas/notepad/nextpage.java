@@ -2,13 +2,18 @@ package pk.org.cas.notepad;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+
+import android.widget.ImageButton;
+
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,6 +27,7 @@ public class nextpage extends AppCompatActivity {
 
     RecyclerView notes_rv;
     ExtendedFloatingActionButton add_note_fab;
+    ImageButton logout_btn;
 
     SearchView search_et;
     List<Notes> notesList;
@@ -33,11 +39,17 @@ public class nextpage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nextpage);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("Notes");
+        String uid = FirebaseAuth.getInstance().getUid();
+        if (uid != null) {
+            databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(uid).child("Notes");
+        } else {
+            databaseReference = FirebaseDatabase.getInstance().getReference("Notes");
+        }
 
         add_note_fab = findViewById(R.id.add_note_fab);
         notes_rv = findViewById(R.id.notes_rv);
         search_et = findViewById(R.id.search_et);
+        logout_btn = findViewById(R.id.logout_btn);
 
         notesList = new ArrayList<>();
         adaptor = new Adaptor(notesList);
@@ -46,6 +58,12 @@ public class nextpage extends AppCompatActivity {
         notes_rv.setAdapter(adaptor);
 
         loadNotes();
+
+        logout_btn.setOnClickListener(v -> {
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(nextpage.this, login_page.class));
+            finish();
+        });
 
         add_note_fab.setOnClickListener(v -> {
             Intent intent = new Intent(nextpage.this, dataenter.class);

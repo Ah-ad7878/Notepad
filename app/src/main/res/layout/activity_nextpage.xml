@@ -22,14 +22,30 @@
             android:paddingTop="24dp"
             android:paddingBottom="8dp">
 
-            <TextView
-                android:id="@+id/title_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-black"
-                android:text="@string/my_notes"
-                android:textColor="@color/black"
-                android:textSize="32sp" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/title_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/noteame"
+                    android:text="@string/my_notes"
+                    android:textColor="@color/black"
+                    android:textSize="32sp" />
+
+                <ImageButton
+                    android:id="@+id/logout_btn"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@android:drawable/ic_lock_power_off"
+                    app:tint="@color/black"
+                    android:contentDescription="Logout" />
+            </RelativeLayout>
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/search_card"
