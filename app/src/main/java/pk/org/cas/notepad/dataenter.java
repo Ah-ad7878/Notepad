@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -36,7 +37,12 @@ public class dataenter extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dataenter);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("Notes");
+        String uid = FirebaseAuth.getInstance().getUid();
+        if (uid != null) {
+            databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(uid).child("Notes");
+        } else {
+            databaseReference = FirebaseDatabase.getInstance().getReference("Notes");
+        }
 
         mainLayout = findViewById(R.id.main_layout);
         back_btn = findViewById(R.id.back_btn);
@@ -122,6 +128,7 @@ public class dataenter extends AppCompatActivity {
                 String id = databaseReference.push().getKey();
                 Notes note = new Notes(title, content, selectedColor, time);
                 if (id != null) {
+                    note.setId(id);
                     databaseReference.child(id).setValue(note)
                             .addOnSuccessListener(aVoid -> {
                                 Toast.makeText(dataenter.this, "Note saved", Toast.LENGTH_SHORT).show();

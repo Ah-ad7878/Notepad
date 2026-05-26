@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
@@ -63,6 +64,7 @@ public class Adaptor extends RecyclerView.Adapter<Adaptor.ProductViewHolder>{
         holder.itemView.setOnClickListener(v -> {
             Context context = v.getContext();
             Intent intent = new Intent(context, datashow.class);
+            intent.putExtra("id", notes.getId());
             intent.putExtra("title", notes.getTitle());
             intent.putExtra("content", notes.getDescription());
             intent.putExtra("date", notes.getTime());
@@ -77,10 +79,18 @@ public class Adaptor extends RecyclerView.Adapter<Adaptor.ProductViewHolder>{
                 String noteId = noteToDelete.getId();
 
                 if (noteId != null) {
-                    FirebaseDatabase.getInstance().getReference("Notes")
-                            .child(noteId).removeValue()
-                            .addOnSuccessListener(aVoid -> Toast.makeText(view.getContext(), "Note Deleted", Toast.LENGTH_SHORT).show())
-                            .addOnFailureListener(e -> Toast.makeText(view.getContext(), "Delete Failed", Toast.LENGTH_SHORT).show());
+                    String uid = FirebaseAuth.getInstance().getUid();
+                    if (uid != null) {
+                        FirebaseDatabase.getInstance().getReference("Users").child(uid).child("Notes")
+                                .child(noteId).removeValue()
+                                .addOnSuccessListener(aVoid -> Toast.makeText(view.getContext(), "Note Deleted", Toast.LENGTH_SHORT).show())
+                                .addOnFailureListener(e -> Toast.makeText(view.getContext(), "Delete Failed", Toast.LENGTH_SHORT).show());
+                    } else {
+                        FirebaseDatabase.getInstance().getReference("Notes")
+                                .child(noteId).removeValue()
+                                .addOnSuccessListener(aVoid -> Toast.makeText(view.getContext(), "Note Deleted", Toast.LENGTH_SHORT).show())
+                                .addOnFailureListener(e -> Toast.makeText(view.getContext(), "Delete Failed", Toast.LENGTH_SHORT).show());
+                    }
                 } else {
 
                     notesList.remove(currentPosition);
