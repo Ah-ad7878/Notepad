@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -22,13 +23,13 @@ import java.util.Locale;
 
 public class dataenter extends AppCompatActivity {
 
-     ImageButton back_btn;
-     Button save_btn;
-     View colorWhite, colorRed, colorYellow, colorPink, colorGreen, colorBlue, colorPurple, colorOrange;
-     View mainLayout;
-     TextView currentDateTv;
-     EditText titleEt, contentEt;
-    
+    ImageButton back_btn;
+    Button save_btn;
+    View colorWhite, colorRed, colorYellow, colorPink, colorGreen, colorBlue, colorPurple, colorOrange, colorGranite, colorAqua, colorBrown;
+    View mainLayout;
+    TextView currentDateTv;
+    EditText titleEt, contentEt;
+
     private int selectedColor;
     private DatabaseReference databaseReference;
 
@@ -59,6 +60,9 @@ public class dataenter extends AppCompatActivity {
         colorBlue = findViewById(R.id.color_blue);
         colorPurple = findViewById(R.id.color_purple);
         colorOrange = findViewById(R.id.color_orange);
+        colorGranite = findViewById(R.id.color_granite);
+        colorAqua = findViewById(R.id.color_Aqua);
+        colorBrown = findViewById(R.id.color_brown);
 
         selectedColor = Color.WHITE;
 
@@ -105,6 +109,19 @@ public class dataenter extends AppCompatActivity {
             selectedColor = ContextCompat.getColor(this, R.color.note_orange);
             mainLayout.setBackgroundColor(selectedColor);
         });
+        colorGranite.setOnClickListener(view -> {
+            selectedColor = ContextCompat.getColor(this, R.color.granite);
+            mainLayout.setBackgroundColor(selectedColor);
+        });
+        colorAqua.setOnClickListener(view -> {
+            selectedColor = ContextCompat.getColor(this, R.color.Aqua);
+            mainLayout.setBackgroundColor(selectedColor);
+        });
+        colorBrown.setOnClickListener(view -> {
+            selectedColor = ContextCompat.getColor(this, R.color.brown);
+            mainLayout.setBackgroundColor(selectedColor);
+        });
+
 
         save_btn.setOnClickListener(new View.OnClickListener() {
             @Override

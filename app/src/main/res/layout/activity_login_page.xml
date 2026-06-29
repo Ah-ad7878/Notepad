@@ -100,11 +100,21 @@
                     android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <CheckBox
+                android:id="@+id/remember_me"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginTop="13dp"
+                android:text="Remember me"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                />
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/login_btn"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="28dp"
                 android:text="Login"
                 android:textColor="@color/white"
                 android:textAllCaps="false"

@@ -17,7 +17,11 @@
     <color name="note_blue">#D1E4FF</color>
     <color name="note_purple">#E9DDFF</color>
     <color name="note_orange">#FFDCC0</color>
+    <color name="granite">#506A67</color>
+    <color name="Aqua">#94D9C6</color>
+    <color name="brown">#7e9c5a</color>
 
     <color name="surface_variant">#E1E2EC</color>
     <color name="on_surface_variant">#44474E</color>
+    
 </resources>
