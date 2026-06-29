@@ -7,6 +7,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -54,7 +55,7 @@ public class nextpage extends AppCompatActivity {
         notesList = new ArrayList<>();
         adaptor = new Adaptor(notesList);
 
-        notes_rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        notes_rv.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
         notes_rv.setAdapter(adaptor);
 
         loadNotes();
@@ -68,6 +69,7 @@ public class nextpage extends AppCompatActivity {
         add_note_fab.setOnClickListener(v -> {
             Intent intent = new Intent(nextpage.this, dataenter.class);
             startActivity(intent);
+            Toast.makeText(this, "Add notes", Toast.LENGTH_SHORT).show();
         });
 
         search_et.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

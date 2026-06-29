@@ -27,7 +27,7 @@ public class datashow extends AppCompatActivity {
     EditText show_note_title_tv, show_note_content_tv;
     TextView show_note_date_tv;
     View mainLayout;
-    View colorWhite, colorRed, colorYellow, colorPink, colorGreen, colorBlue, colorPurple, colorOrange;
+    View colorWhite, colorRed, colorYellow, colorPink, colorGreen, colorBlue, colorPurple, colorOrange, colorGranite, colorAqua, colorBrown;
     DatabaseReference databaseReference;
     String noteId;
     int selectedColor;
@@ -52,6 +52,9 @@ public class datashow extends AppCompatActivity {
         colorBlue = findViewById(R.id.show_color_blue);
         colorPurple = findViewById(R.id.show_color_purple);
         colorOrange = findViewById(R.id.show_color_orange);
+        colorGranite = findViewById(R.id.show_color_granite);
+        colorAqua = findViewById(R.id.show_color_Aqua);
+        colorBrown = findViewById(R.id.show_color_Brown);
 
         String uid = FirebaseAuth.getInstance().getUid();
         if (uid != null) {
@@ -84,14 +87,50 @@ public class datashow extends AppCompatActivity {
             }
         }
 
-        colorWhite.setOnClickListener(v -> { selectedColor = ContextCompat.getColor(this, R.color.white); mainLayout.setBackgroundColor(selectedColor); });
-        colorRed.setOnClickListener(v -> { selectedColor = ContextCompat.getColor(this, R.color.note_red); mainLayout.setBackgroundColor(selectedColor); });
-        colorYellow.setOnClickListener(v -> { selectedColor = ContextCompat.getColor(this, R.color.note_yellow); mainLayout.setBackgroundColor(selectedColor); });
-        colorPink.setOnClickListener(v -> { selectedColor = ContextCompat.getColor(this, R.color.note_pink); mainLayout.setBackgroundColor(selectedColor); });
-        colorGreen.setOnClickListener(v -> { selectedColor = ContextCompat.getColor(this, R.color.note_green); mainLayout.setBackgroundColor(selectedColor); });
-        colorBlue.setOnClickListener(v -> { selectedColor = ContextCompat.getColor(this, R.color.note_blue); mainLayout.setBackgroundColor(selectedColor); });
-        colorPurple.setOnClickListener(v -> { selectedColor = ContextCompat.getColor(this, R.color.note_purple); mainLayout.setBackgroundColor(selectedColor); });
-        colorOrange.setOnClickListener(v -> { selectedColor = ContextCompat.getColor(this, R.color.note_orange); mainLayout.setBackgroundColor(selectedColor); });
+        colorWhite.setOnClickListener(v -> {
+            selectedColor = ContextCompat.getColor(this, R.color.white);
+            mainLayout.setBackgroundColor(selectedColor);
+        });
+        colorRed.setOnClickListener(v -> {
+            selectedColor = ContextCompat.getColor(this, R.color.note_red);
+            mainLayout.setBackgroundColor(selectedColor);
+        });
+        colorYellow.setOnClickListener(v -> {
+            selectedColor = ContextCompat.getColor(this, R.color.note_yellow);
+            mainLayout.setBackgroundColor(selectedColor);
+        });
+        colorPink.setOnClickListener(v -> {
+            selectedColor = ContextCompat.getColor(this, R.color.note_pink);
+            mainLayout.setBackgroundColor(selectedColor);
+        });
+        colorGreen.setOnClickListener(v -> {
+            selectedColor = ContextCompat.getColor(this, R.color.note_green);
+            mainLayout.setBackgroundColor(selectedColor);
+        });
+        colorBlue.setOnClickListener(v -> {
+            selectedColor = ContextCompat.getColor(this, R.color.note_blue);
+            mainLayout.setBackgroundColor(selectedColor);
+        });
+        colorPurple.setOnClickListener(v -> {
+            selectedColor = ContextCompat.getColor(this, R.color.note_purple);
+            mainLayout.setBackgroundColor(selectedColor);
+        });
+        colorOrange.setOnClickListener(v -> {
+            selectedColor = ContextCompat.getColor(this, R.color.note_orange);
+            mainLayout.setBackgroundColor(selectedColor);
+        });
+        colorGranite.setOnClickListener(v -> {
+            selectedColor = ContextCompat.getColor(this, R.color.granite);
+            mainLayout.setBackgroundColor(selectedColor);
+        });
+        colorAqua.setOnClickListener(view -> {
+            selectedColor = ContextCompat.getColor(this, R.color.Aqua);
+            mainLayout.setBackgroundColor(selectedColor);
+        });
+        colorBrown.setOnClickListener(view -> {
+            selectedColor = ContextCompat.getColor(this, R.color.brown);
+            mainLayout.setBackgroundColor(selectedColor);
+        });
 
         update_btn.setOnClickListener(v -> {
             String updatedTitle = show_note_title_tv.getText().toString().trim();
