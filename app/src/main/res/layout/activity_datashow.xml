@@ -8,74 +8,206 @@
     android:background="@color/white"
     tools:context=".datashow">
 
-    <ImageButton
-        android:id="@+id/show_back_btn"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="Back"
-        android:src="@android:drawable/ic_menu_revert"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/black" />
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/show_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@android:color/transparent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="@id/show_back_btn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/show_back_btn">
+        <ImageButton
+            android:id="@+id/show_back_btn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Back"
+            android:src="@android:drawable/ic_menu_revert"
+            app:tint="@color/black" />
 
-    </LinearLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/update_btn"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/notepad"
+            android:text="@string/update"
+            android:textColor="@color/btn_blue"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textAllCaps="false" />
+
+    </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
         android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/show_back_btn">
+        app:layout_constraintTop_toBottomOf="@id/show_toolbar">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingHorizontal="24dp"
-            android:paddingBottom="24dp">
+            android:paddingBottom="40dp">
 
-            <TextView
+            <EditText
                 android:id="@+id/show_note_title_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:background="@null"
                 android:fontFamily="@font/slumber"
+                android:hint="Title"
+                android:importantForAutofill="no"
+                android:inputType="textCapSentences"
                 android:textColor="@color/black"
                 android:textSize="32sp"
-                android:textStyle="bold"
-                 />
+                tools:text="Note Title" />
 
             <TextView
                 android:id="@+id/show_note_date_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:alpha="0.5"
+                android:alpha="0.6"
                 android:textColor="@color/black"
-                android:textSize="14sp"/>
+                android:textSize="14sp"
+                tools:text="October 24, 2023" />
 
-            <TextView
+            <EditText
                 android:id="@+id/show_note_content_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:lineSpacingExtra="4dp"
+                android:background="@null"
+                android:gravity="top"
+                android:hint="Note content..."
+                android:fontFamily="@font/notesfont"
+                android:importantForAutofill="no"
+                android:inputType="textMultiLine|textCapSentences"
+                android:lineSpacingExtra="6dp"
                 android:textColor="@color/black"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                tools:text="This is the content of the note. It should look clean and easy to read." />
         </LinearLayout>
     </ScrollView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/show_bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.BottomBar">
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:background="@color/white"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="16dp">
+
+                <View
+                    android:id="@+id/show_color_white"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginHorizontal="8dp"
+                    android:background="@drawable/circle_color"
+                    android:backgroundTint="@color/white"
+                    android:elevation="2dp" />
+
+                <View
+                    android:id="@+id/show_color_red"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginHorizontal="8dp"
+                    android:background="@drawable/circle_color"
+                    android:backgroundTint="@color/note_red" />
+
+                <View
+                    android:id="@+id/show_color_yellow"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginHorizontal="8dp"
+                    android:background="@drawable/circle_color"
+                    android:backgroundTint="@color/note_yellow" />
+
+                <View
+                    android:id="@+id/show_color_pink"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginHorizontal="8dp"
+                    android:background="@drawable/circle_color"
+                    android:backgroundTint="@color/note_pink" />
+
+                <View
+                    android:id="@+id/show_color_green"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginHorizontal="8dp"
+                    android:background="@drawable/circle_color"
+                    android:backgroundTint="@color/note_green" />
+
+                <View
+                    android:id="@+id/show_color_blue"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginHorizontal="8dp"
+                    android:background="@drawable/circle_color"
+                    android:backgroundTint="@color/note_blue" />
+
+                <View
+                    android:id="@+id/show_color_purple"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginHorizontal="8dp"
+                    android:background="@drawable/circle_color"
+                    android:backgroundTint="@color/note_purple" />
+
+                <View
+                    android:id="@+id/show_color_orange"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginHorizontal="8dp"
+                    android:background="@drawable/circle_color"
+                    android:backgroundTint="@color/note_orange" />
+
+                <View
+                    android:id="@+id/show_color_granite"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginHorizontal="8dp"
+                    android:background="@drawable/circle_color"
+                    android:backgroundTint="@color/granite" />
+
+                <View
+                    android:id="@+id/show_color_Aqua"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginHorizontal="8dp"
+                    android:background="@drawable/circle_color"
+                    android:backgroundTint="@color/Aqua" />
+
+                <View
+                    android:id="@+id/show_color_Brown"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginHorizontal="8dp"
+                    android:background="@drawable/circle_color"
+                    android:backgroundTint="@color/brown" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
