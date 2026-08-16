@@ -5,23 +5,17 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/background"
     tools:context=".MainActivity">
 
-    <View
-        android:id="@+id/background_decoration"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:background="@color/blue"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/app_logo"
         android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_height="130dp"
         android:layout_marginTop="100dp"
-        android:src="@drawable/appicon"
         android:contentDescription="@string/app_name"
+        android:src="@drawable/bg_remove"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -45,8 +39,8 @@
         android:layout_marginHorizontal="48dp"
         android:layout_marginTop="19dp"
         android:alpha="0.7"
-        android:gravity="center"
         android:fontFamily="@font/slumber"
+        android:gravity="center"
         android:text="@string/app_description"
         android:textColor="@color/black"
         android:textSize="17sp"
@@ -65,8 +59,14 @@
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="18sp"
-        app:backgroundTint="@color/btn_blue"
+        android:background="@drawable/btn_bg"
         app:cornerRadius="32dp"
+        app:rippleColor="@color/ripple_color"
+        android:backgroundTint="@null"
+        android:elevation="12dp"
+        android:translationZ="6dp"
+
+        android:drawableEnd="@drawable/baseline_navigate_next_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

@@ -23,5 +23,10 @@
 
     <color name="surface_variant">#E1E2EC</color>
     <color name="on_surface_variant">#44474E</color>
+    <color name="start_color">#8A2BE2</color>
+    <color name="end_color">#00BFF</color>
+
+    <color name="btn_solid">#0066CC</color>
+    <color name="ripple_color">#40FFFFFF</color>
     
 </resources>

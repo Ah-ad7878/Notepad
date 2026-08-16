@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:startColor="@color/start_color"
+                android:endColor="@color/end_color"
+                android:angle="135" />
+        </shape>
+    </item>
+
+
+    <item
+        android:width="24dp"
+        android:height="24dp"
+        android:top="80dp"
+        android:left="40dp"
+        android:gravity="top|left"
+        android:drawable="@drawable/baseline_star_purple500_24" />
+
+
+    <item
+        android:width="20dp"
+        android:height="20dp"
+        android:top="180dp"
+        android:right="50dp"
+        android:gravity="center"
+        android:drawable="@drawable/baseline_star_purple500_24" />
+
+
+    <item
+        android:width="20dp"
+        android:height="20dp"
+        android:top="10dp"
+        android:right="50dp"
+        android:gravity="bottom|left"
+        android:drawable="@drawable/baseline_star_purple500_24" />
+
+</layer-list>
