@@ -41,7 +41,6 @@
         android:alpha="0.7"
         android:fontFamily="@font/slumber"
         android:gravity="center"
-        android:fontFamily="@font/slumber"
         android:text="@string/app_description"
         android:textColor="@color/black"
         android:textSize="17sp"
@@ -66,7 +65,6 @@
         android:backgroundTint="@null"
         android:elevation="12dp"
         android:translationZ="6dp"
-
         android:drawableEnd="@drawable/baseline_navigate_next_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
