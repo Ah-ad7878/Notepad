@@ -11,21 +11,22 @@
         android:id="@+id/top_decoration"
         android:layout_width="match_parent"
         android:layout_height="220dp"
-        android:background="@color/blue"
+        android:background="@drawable/background"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/login_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
         android:layout_marginTop="80dp"
         android:fontFamily="@font/welcome"
         android:text="Welcome Back"
         android:textColor="@color/black"
         android:textSize="32sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
 
     <TextView
         android:id="@+id/login_subtitle"
@@ -48,7 +49,7 @@
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="32dp"
         app:cardCornerRadius="24dp"
-        app:cardElevation="8dp"
+        app:cardElevation="15dp"
         app:strokeWidth="0dp"
         app:layout_constraintTop_toBottomOf="@id/top_decoration">
 
@@ -118,6 +119,10 @@
                 android:text="Login"
                 android:textColor="@color/white"
                 android:textAllCaps="false"
+                android:elevation="10dp"
+                android:translationZ="6dp"
+                android:stateListAnimator="@null"
+                android:shadowColor="@color/black"
                 android:textSize="16sp"
                 app:cornerRadius="12dp"
                 app:backgroundTint="@color/btn_blue" />
