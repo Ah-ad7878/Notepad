@@ -32,17 +32,3 @@ A modern, intuitive, and feature-rich Android application designed to help users
 * **Minimum SDK:** 24 (Android 7.0)
 
 ---
-
-## 📱 Screenshots
-
-| Onboarding Screen | Sign Up / Auth | Customer Support |
-| :---: | :---: | :---: |
-| *(Add Screenshot Link)* | *(Add Screenshot Link)* | *(Add Screenshot Link)* |
-
----
-
-## 📥 Installation & Setup
-
-1. **Clone the repository:**
-   ```bash
-   git clone [https://github.com/your-username/notepad-app.git](https://github.com/your-username/notepad-app.git)
