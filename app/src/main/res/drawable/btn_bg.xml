@@ -11,7 +11,7 @@
 
             <!-- Glowing White Border -->
             <stroke
-                android:width="2dp"
+                android:width="2.5dp"
                 android:color="#FFFFFF" />
         </shape>
     </item>
