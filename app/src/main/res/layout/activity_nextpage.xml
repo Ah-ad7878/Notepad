@@ -35,6 +35,17 @@
                     android:textColor="@color/black"
                     android:textSize="32sp" />
 
+                <ImageView
+                    android:id="@+id/customer_care"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="8dp"
+                    android:layout_toStartOf="@id/logout_btn"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="10dp"
+                    android:src="@drawable/outline_call_24" />
+
                 <ImageButton
                     android:id="@+id/logout_btn"
                     android:layout_width="48dp"
@@ -86,7 +97,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="24dp"
+        android:layout_marginBottom="40dp"
+        android:layout_marginEnd="15dp"
         android:textColor="@color/white"
         android:textAllCaps="false"
         android:fontFamily="sans-serif-medium"
