@@ -61,7 +61,7 @@ public class nextpage extends AppCompatActivity {
         customer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String no = "+923140422622";
+                String no = "+923356945429";
                 String message = "Aslam o Alikum i have a problem with my app";
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse("https://wa.me/" + no + "?text=" + Uri.encode(message)));
