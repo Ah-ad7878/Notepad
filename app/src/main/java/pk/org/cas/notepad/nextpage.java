@@ -1,5 +1,7 @@
 package pk.org.cas.notepad;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
