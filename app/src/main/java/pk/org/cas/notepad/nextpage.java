@@ -1,7 +1,9 @@
 package pk.org.cas.notepad;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -28,7 +30,7 @@ public class nextpage extends AppCompatActivity {
 
     RecyclerView notes_rv;
     ExtendedFloatingActionButton add_note_fab;
-    ImageButton logout_btn;
+    ImageButton logout_btn,customer;
 
     SearchView search_et;
     List<Notes> notesList;
@@ -51,6 +53,20 @@ public class nextpage extends AppCompatActivity {
         notes_rv = findViewById(R.id.notes_rv);
         search_et = findViewById(R.id.search_et);
         logout_btn = findViewById(R.id.logout_btn);
+        customer = findViewById(R.id.customer_care);
+
+
+        customer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String no = "+923140422622";
+                String message = "Aslam o Alikum i have a problem with my app";
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://wa.me/" + no + "?text=" + Uri.encode(message)));
+                startActivity(intent);
+            }
+        });
+
 
         notesList = new ArrayList<>();
         adaptor = new Adaptor(notesList);
