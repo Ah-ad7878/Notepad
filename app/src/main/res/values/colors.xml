@@ -28,5 +28,7 @@
 
     <color name="btn_solid">#3D73B2</color>
     <color name="ripple_color">#40FFFFFF</color>
+
+    <color name="call_btn">#878EAB</color>
     
 </resources>

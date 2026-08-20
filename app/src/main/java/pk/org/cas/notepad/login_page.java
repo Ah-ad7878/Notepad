@@ -2,11 +2,13 @@ package pk.org.cas.notepad;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +23,8 @@ public class login_page extends AppCompatActivity {
     TextView signup_tv;
     FirebaseAuth mAuth;
     CheckBox remember_me;
+
+    ImageButton call_btn;
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -41,6 +45,7 @@ public class login_page extends AppCompatActivity {
         login_btn = findViewById(R.id.login_btn);
         signup_tv = findViewById(R.id.go_to_signup_tv);
         remember_me = findViewById(R.id.remember_me);
+        call_btn = findViewById(R.id.call_btn_login);
 
         sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -88,6 +93,17 @@ public class login_page extends AppCompatActivity {
         signup_tv.setOnClickListener(v -> {
             startActivity(new Intent(login_page.this, signup_page.class));
             finish();
+        });
+
+        call_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String no = "+923356945429";
+                String message = "Aslam o Alikum i have a problem with my app";
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://wa.me/" + no + "?text=" + Uri.encode(message)));
+                startActivity(intent);
+            }
         });
     }
 }
