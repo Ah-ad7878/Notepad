@@ -7,15 +7,17 @@ A modern, intuitive, and feature-rich Android application designed to help users
 ## 🌟 Key Features
 
 * **Instant Note Management:** Easily create, edit, and organize notes and daily to-do lists.
+* **Biometric Authentication (New in v1.2.0):** Secure and seamless fingerprint login integration using Android Biometric API for quick app access.
 * **Integrated Customer Care Support (New in v1.2.0):** Dedicated in-app support service allowing users to submit queries, report issues, or provide feedback directly.
 * **Modern UI/UX Design:** Refined user interface featuring custom gradients, soft elevation card shadows, rounded button styles, and polished typography.
-* **User Authentication:** Sleek Sign-Up and Login screens with real-time input validation and accessibility icons.
+* **User Authentication:** Sleek Sign-Up and Login screens with real-time input validation, Firebase integration, and accessibility icons.
 * **Responsive Layouts:** Optimized for various Android screen sizes with proper layout constraints and custom vector assets.
 
 ---
 
 ## 🚀 What's New in Version 1.2.0
 
+* 🔐 **Biometric Fingerprint Login:** Added one-touch biometric authentication for faster, passwordless access.
 * 🛠️ **In-App Customer Care Hub:** Added direct support integration for fast assistance.
 * 🎨 **UI Overhaul:** Enhanced layout styling with soft card elevations, updated color palettes, and modern button states.
 * 🔒 **SDK Target Update:** Compiled and optimized for `compileSdk 36` to ensure compatibility with the latest Android standards.
@@ -27,6 +29,7 @@ A modern, intuitive, and feature-rich Android application designed to help users
 
 * **Language:** Java
 * **UI Design:** Android XML Layouts, Material Design Components 3
+* **Security & Authentication:** Android Biometric API (`androidx.biometric`), Firebase Authentication
 * **IDE:** Android Studio
 * **Target SDK:** 36
 * **Minimum SDK:** 24 (Android 7.0)
