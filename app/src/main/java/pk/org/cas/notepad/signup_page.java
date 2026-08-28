@@ -16,7 +16,7 @@ public class signup_page extends AppCompatActivity {
 
     EditText name_et, email_et, password_et;
     Button signup_btn;
-    TextView login_tv;
+
     FirebaseAuth mAuth;
 
     private static final String PREF_NAME = "login_pref";
@@ -35,7 +35,7 @@ public class signup_page extends AppCompatActivity {
         email_et = findViewById(R.id.email_et);
         password_et = findViewById(R.id.password_et);
         signup_btn = findViewById(R.id.signup_btn);
-        login_tv = findViewById(R.id.login_tv);
+
 
         signup_btn.setOnClickListener(v -> {
             String email = email_et.getText().toString().trim();
@@ -74,9 +74,6 @@ public class signup_page extends AppCompatActivity {
                     });
         });
 
-        login_tv.setOnClickListener(v -> {
-            startActivity(new Intent(signup_page.this, login_page.class));
-            finish();
-        });
+
     }
 }
