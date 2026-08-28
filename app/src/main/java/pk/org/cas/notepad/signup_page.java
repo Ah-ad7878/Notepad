@@ -2,7 +2,7 @@ package pk.org.cas.notepad;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -19,6 +19,11 @@ public class signup_page extends AppCompatActivity {
     TextView login_tv;
     FirebaseAuth mAuth;
 
+    private static final String PREF_NAME = "login_pref";
+    private static final String KEY_EMAIL = "email";
+    private static final String KEY_PASS = "password";
+    private static final String KEY_REMEMBER = "is_remembered";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,34 +37,41 @@ public class signup_page extends AppCompatActivity {
         signup_btn = findViewById(R.id.signup_btn);
         login_tv = findViewById(R.id.login_tv);
 
-        signup_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String email = email_et.getText().toString().trim();
-                String password = password_et.getText().toString().trim();
+        signup_btn.setOnClickListener(v -> {
+            String email = email_et.getText().toString().trim();
+            String password = password_et.getText().toString().trim();
 
-                if (email.isEmpty() || password.isEmpty()) {
-                    Toast.makeText(signup_page.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (password.length() < 6) {
-                    Toast.makeText(signup_page.this, "Password must be at least 6 characters", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                mAuth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(signup_page.this, task -> {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(signup_page.this, "Registration Successful", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(signup_page.this, nextpage.class));
-                                finish();
-                            } else {
-                                Toast.makeText(signup_page.this, "Authentication failed: " + task.getException().getMessage(),
-                                        Toast.LENGTH_SHORT).show();
-                            }
-                        });
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(signup_page.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+                return;
             }
+
+            if (password.length() < 6) {
+                Toast.makeText(signup_page.this, "Password must be at least 6 characters", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            mAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(signup_page.this, task -> {
+                        if (task.isSuccessful()) {
+                            // Save credentials so biometric works immediately
+                            getSharedPreferences(PREF_NAME, MODE_PRIVATE).edit()
+                                    .putString(KEY_EMAIL, email)
+                                    .putString(KEY_PASS, password)
+                                    .putBoolean(KEY_REMEMBER, true)
+                                    .apply();
+
+                            Toast.makeText(signup_page.this, "Registration Successful", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(signup_page.this, nextpage.class));
+                            finish();
+                        } else {
+                            String errorMsg = "Authentication failed";
+                            if (task.getException() != null) {
+                                errorMsg += ": " + task.getException().getMessage();
+                            }
+                            Toast.makeText(signup_page.this, errorMsg, Toast.LENGTH_SHORT).show();
+                        }
+                    });
         });
 
         login_tv.setOnClickListener(v -> {

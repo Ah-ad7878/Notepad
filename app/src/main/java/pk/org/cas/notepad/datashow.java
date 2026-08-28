@@ -61,12 +61,7 @@ public class datashow extends AppCompatActivity {
             databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(uid).child("Notes");
         }
 
-        show_back_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        show_back_btn.setOnClickListener(view -> finish());
 
         Intent intent = getIntent();
         if (intent != null) {

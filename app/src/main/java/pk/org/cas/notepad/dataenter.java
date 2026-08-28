@@ -70,12 +70,7 @@ public class dataenter extends AppCompatActivity {
         SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd, yyyy h:mm a", Locale.getDefault());
         currentDateTv.setText(sdf.format(new Date()));
 
-        back_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        back_btn.setOnClickListener(view -> finish());
 
         colorWhite.setOnClickListener(v -> {
             selectedColor = ContextCompat.getColor(this, R.color.white);
@@ -123,39 +118,34 @@ public class dataenter extends AppCompatActivity {
         });
 
 
-        save_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String title = titleEt.getText().toString().trim();
-                String content = contentEt.getText().toString().trim();
+        save_btn.setOnClickListener(v -> {
+            String title = titleEt.getText().toString().trim();
+            String content = contentEt.getText().toString().trim();
 
-                if (title.isEmpty()) {
-                    Toast.makeText(dataenter.this, "Please enter a title", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+            if (title.isEmpty()) {
+                Toast.makeText(dataenter.this, "Please enter a title", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-                long time = System.currentTimeMillis();
-                Intent intent = new Intent();
-                intent.putExtra("title", title);
-                intent.putExtra("description", content);
-                intent.putExtra("color", selectedColor);
-                intent.putExtra("time", time);
+            long time = System.currentTimeMillis();
+            Intent intent = new Intent();
+            intent.putExtra("title", title);
+            intent.putExtra("description", content);
+            intent.putExtra("color", selectedColor);
+            intent.putExtra("time", time);
 
-                // Save to Firebase
-                String id = databaseReference.push().getKey();
-                Notes note = new Notes(title, content, selectedColor, time);
-                if (id != null) {
-                    note.setId(id);
-                    databaseReference.child(id).setValue(note)
-                            .addOnSuccessListener(aVoid -> {
-                                Toast.makeText(dataenter.this, "Note saved", Toast.LENGTH_SHORT).show();
-                                setResult(RESULT_OK, intent);
-                                finish();
-                            })
-                            .addOnFailureListener(e -> {
-                                Toast.makeText(dataenter.this, "Failed to save: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                            });
-                }
+            // Save to Firebase
+            String id = databaseReference.push().getKey();
+            Notes note = new Notes(title, content, selectedColor, time);
+            if (id != null) {
+                note.setId(id);
+                databaseReference.child(id).setValue(note)
+                        .addOnSuccessListener(aVoid -> {
+                            Toast.makeText(dataenter.this, "Note saved", Toast.LENGTH_SHORT).show();
+                            setResult(RESULT_OK, intent);
+                            finish();
+                        })
+                        .addOnFailureListener(e -> Toast.makeText(dataenter.this, "Failed to save: " + e.getMessage(), Toast.LENGTH_SHORT).show());
             }
         });
     }

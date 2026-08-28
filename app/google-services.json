@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "167779497115",
+    "firebase_url": "https://notepad-9ad6c-default-rtdb.firebaseio.com",
     "project_id": "notepad-9ad6c",
     "storage_bucket": "notepad-9ad6c.firebasestorage.app"
   },
@@ -12,7 +13,12 @@
           "package_name": "pk.org.cas.notepad"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "167779497115-5nhdg8nr5ad2cvjuadlb2nd4vh3t9h0t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCc-zCYnRUCKf3HG5vCWDSL-GRyky1JZ-Y"
@@ -20,7 +26,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "167779497115-5nhdg8nr5ad2cvjuadlb2nd4vh3t9h0t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

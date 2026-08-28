@@ -34,7 +34,6 @@ public class login_page extends AppCompatActivity {
 
     private BiometricPrompt biometricPrompt;
     private BiometricPrompt.PromptInfo promptInfo;
-    private Executor executor;
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -67,53 +66,70 @@ public class login_page extends AppCompatActivity {
             email_et.setText(sharedPreferences.getString(KEY_EMAIL, ""));
             password_et.setText(sharedPreferences.getString(KEY_PASS, ""));
             remember_me.setChecked(true);
+            
+            // Auto-trigger biometric only if we have a saved password
+            // If it was a Google login, we only have the email, so we don't auto-login
+            if (mAuth.getCurrentUser() != null && !password_et.getText().toString().isEmpty()) {
+                new android.os.Handler(android.os.Looper.getMainLooper()).postDelayed(() -> {
+                    if (!isFinishing() && !isDestroyed()) {
+                        biometricPrompt.authenticate(promptInfo);
+                    }
+                }, 500);
+            }
         }
         
         checkBiometricCapability();
 
-        call_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String no = "+923356945429";
-                String message = "Aslam o Alikum i have a problem with my app";
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse("https://wa.me/" + no + "?text=" + Uri.encode(message)));
-                startActivity(intent);
-            }
+        call_btn.setOnClickListener(v -> {
+            String no = "+923356945429";
+            String message = "Aslam o Alikum i have a problem with my app";
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse("https://wa.me/" + no + "?text=" + Uri.encode(message)));
+            startActivity(intent);
         });
 
-        login_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String email = email_et.getText().toString().trim();
-                String password = password_et.getText().toString().trim();
+        login_btn.setOnClickListener(v -> {
+            String email = email_et.getText().toString().trim();
+            String password = password_et.getText().toString().trim();
 
-                if (email.isEmpty() || password.isEmpty()) {
-                    Toast.makeText(login_page.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                mAuth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(login_page.this, task -> {
-                            if (task.isSuccessful()) {
-                                if (remember_me.isChecked()) {
-                                    editor.putString(KEY_EMAIL, email);
-                                    editor.putString(KEY_PASS, password);
-                                    editor.putBoolean(KEY_REMEMBER, true);
-                                } else {
-                                    editor.clear();
-                                }
-                                editor.apply();
-
-                                Toast.makeText(login_page.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(login_page.this, nextpage.class));
-                                finish();
-                            } else {
-                                Toast.makeText(login_page.this, "Login failed: " + task.getException().getMessage(),
-                                        Toast.LENGTH_SHORT).show();
-                            }
-                        });
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(login_page.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+                return;
             }
+
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(login_page.this, task -> {
+                        if (task.isSuccessful()) {
+                            if (remember_me.isChecked()) {
+                                editor.putString(KEY_EMAIL, email);
+                                editor.putString(KEY_PASS, password);
+                                editor.putBoolean(KEY_REMEMBER, true);
+                            } else {
+                                // Don't clear everything, just the credentials
+                                editor.remove(KEY_EMAIL);
+                                editor.remove(KEY_PASS);
+                                editor.putBoolean(KEY_REMEMBER, false);
+                            }
+                            editor.apply();
+
+                            Toast.makeText(login_page.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(login_page.this, nextpage.class));
+                            finish();
+                        } else {
+                            String errorMsg = "Login failed";
+                            if (task.getException() != null) {
+                                String rawMessage = task.getException().getMessage();
+                                errorMsg += ": " + rawMessage;
+                                
+                                // If credentials are bad, clear the saved ones to avoid auto-filling bad data
+                                if (rawMessage != null && (rawMessage.contains("password") || rawMessage.contains("no user record"))) {
+                                    editor.remove(KEY_PASS);
+                                    editor.apply();
+                                }
+                            }
+                            Toast.makeText(login_page.this, errorMsg, Toast.LENGTH_LONG).show();
+                        }
+                    });
         });
 
         signup_tv.setOnClickListener(v -> {
@@ -126,7 +142,7 @@ public class login_page extends AppCompatActivity {
     }
 
     private void setupBiometric() {
-        executor = ContextCompat.getMainExecutor(this);
+        Executor executor = ContextCompat.getMainExecutor(this);
         biometricPrompt = new BiometricPrompt(login_page.this,
                 executor, new BiometricPrompt.AuthenticationCallback() {
             @Override
@@ -170,6 +186,14 @@ public class login_page extends AppCompatActivity {
     }
 
     private void loginWithSavedCredentials() {
+        // If already logged in (e.g. Google or previous session), just go to next page
+        if (mAuth.getCurrentUser() != null) {
+            Toast.makeText(login_page.this, "Unlocked", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(login_page.this, nextpage.class));
+            finish();
+            return;
+        }
+
         String email = sharedPreferences.getString(KEY_EMAIL, "");
         String password = sharedPreferences.getString(KEY_PASS, "");
 
@@ -181,10 +205,15 @@ public class login_page extends AppCompatActivity {
                             startActivity(new Intent(login_page.this, nextpage.class));
                             finish();
                         } else {
-                            Toast.makeText(login_page.this, "Login failed: " + task.getException().getMessage(),
-                                    Toast.LENGTH_SHORT).show();
+                            // If biometric login fails, let them type manually
+                            Toast.makeText(login_page.this, "Saved login failed. Please type password.", Toast.LENGTH_SHORT).show();
                         }
                     });
+        } else if (mAuth.getCurrentUser() != null) {
+            // If user is logged in via Google, biometric just acts as a lock
+            Toast.makeText(login_page.this, "Unlocked", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(login_page.this, nextpage.class));
+            finish();
         } else {
             Toast.makeText(this, "Please login with password first to enable biometric", Toast.LENGTH_SHORT).show();
         }

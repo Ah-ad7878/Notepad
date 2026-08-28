@@ -1,6 +1,6 @@
 package pk.org.cas.notepad;
 
-import static androidx.core.content.ContextCompat.startActivity;
+
 
 import android.content.Intent;
 import android.net.Uri;
@@ -58,15 +58,12 @@ public class nextpage extends AppCompatActivity {
         customer = findViewById(R.id.customer_care);
 
 
-        customer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String no = "+923356945429";
-                String message = "Aslam o Alikum i have a problem with my app";
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse("https://wa.me/" + no + "?text=" + Uri.encode(message)));
-                startActivity(intent);
-            }
+        customer.setOnClickListener(view -> {
+            String no = "+923356945429";
+            String message = "Aslam o Alikum i have a problem with my app";
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse("https://wa.me/" + no + "?text=" + Uri.encode(message)));
+            startActivity(intent);
         });
 
 

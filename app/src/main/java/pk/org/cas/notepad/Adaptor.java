@@ -58,7 +58,7 @@ public class Adaptor extends RecyclerView.Adapter<Adaptor.ProductViewHolder>{
             String dateString = sdf.format(new Date(notes.getTime()));
             holder.note_date_tv.setText(dateString);
         } catch (Exception e) {
-            holder.note_date_tv.setText("No date");
+            holder.note_date_tv.setText(R.string.no_date);
         }
 
         holder.itemView.setOnClickListener(v -> {
@@ -117,7 +117,7 @@ public class Adaptor extends RecyclerView.Adapter<Adaptor.ProductViewHolder>{
         return notesList != null ? notesList.size() : 0;
     }
 
-    static class ProductViewHolder extends RecyclerView.ViewHolder {
+    public static class ProductViewHolder extends RecyclerView.ViewHolder {
         TextView note_title_tv, note_desc_tv, note_date_tv;
         MaterialCardView note_card;
 
