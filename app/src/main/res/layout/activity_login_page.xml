@@ -112,21 +112,45 @@
                 android:textStyle="bold"
                 />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/login_btn"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
-                android:text="Login"
-                android:textColor="@color/white"
-                android:textAllCaps="false"
-                android:elevation="10dp"
-                android:translationZ="6dp"
-                android:stateListAnimator="@null"
-                android:shadowColor="@color/black"
-                android:textSize="16sp"
-                app:cornerRadius="12dp"
-                app:backgroundTint="@color/btn_blue" />
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/login_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="1"
+                    android:text="Login"
+                    android:textColor="@color/white"
+                    android:textAllCaps="false"
+                    android:elevation="10dp"
+                    android:translationZ="6dp"
+                    android:stateListAnimator="@null"
+                    android:shadowColor="@color/black"
+                    android:textSize="16sp"
+                    app:cornerRadius="12dp"
+                    app:backgroundTint="@color/btn_blue" />
+
+                <ImageButton
+                    android:id="@+id/biometric_login_btn"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_marginStart="12dp"
+                    android:background="@drawable/bio_btn"
+                    android:contentDescription="@string/biometricfinger_text"
+                    android:src="@drawable/ic_fingerprint"
+                    android:visibility="gone"
+                    android:padding="12dp"
+                    app:tint="@color/white"
+                    android:elevation="10dp"
+                    android:translationZ="6dp"
+                    tools:visibility="visible" />
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/go_to_signup_tv"

@@ -17,4 +17,5 @@
     <string name="sign_up">Sign Up</string>
     <string name="already_have_account">Already have an account? Login</string>
     <string name="update">Update</string>
+    <string name="biometricfinger_text">BiometricFinger</string>
 </resources>
