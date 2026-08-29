@@ -58,6 +58,13 @@ public class nextpage extends AppCompatActivity {
         customer = findViewById(R.id.customer_care);
         about = findViewById(R.id.about_app);
 
+        about.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(nextpage.this,About_App.class));
+            }
+        });
+
 
         customer.setOnClickListener(view -> {
             String no = "+923356945429";

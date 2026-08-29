@@ -41,7 +41,7 @@
         android:alpha="0.7"
         android:fontFamily="@font/slumber"
         android:gravity="center"
-        android:text="@string/app_description"
+        android:text="@string/splash_des"
         android:textColor="@color/black"
         android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="parent"

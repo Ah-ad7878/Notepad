@@ -10,6 +10,7 @@
     <string name="save">Save</string>
     <string name="app_description">Notepad is a simple, secure, and intuitive workspace for your daily ideas and task lists. Easily organize your thoughts with custom color palettes, quickly search through saved entries, and keep your data safe with Firebase authentication and quick biometric login.</string>
     <string name="create_account">Create Account</string>
+    <string name="splash_des">"Capture your daily thoughts, ideas, and tasks instantly in one secure place."</string>
     <string name="sign_up_desc">Join us to keep your notes organized and safe.</string>
     <string name="full_name">Full Name</string>
     <string name="email">Email</string>
