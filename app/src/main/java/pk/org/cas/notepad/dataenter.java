@@ -10,12 +10,26 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.mlkit.vision.text.TextRecognizer;
+import com.google.mlkit.vision.common.InputImage;
+import com.google.mlkit.vision.text.TextRecognition;
+import com.google.mlkit.vision.text.latin.TextRecognizerOptions;
+import com.google.mlkit.vision.text.Text;
+import android.provider.MediaStore;
+import android.Manifest;
+import android.net.Uri;
+import androidx.core.content.FileProvider;
+import android.os.Environment;
+import java.io.File;
+import java.io.IOException;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -23,7 +37,7 @@ import java.util.Locale;
 
 public class dataenter extends AppCompatActivity {
 
-    ImageButton back_btn;
+    ImageButton back_btn,ocr_scanner;
     Button save_btn;
     View colorWhite, colorRed, colorYellow, colorPink, colorGreen, colorBlue, colorPurple, colorOrange, colorGranite, colorAqua, colorBrown;
     View mainLayout;
@@ -32,6 +46,30 @@ public class dataenter extends AppCompatActivity {
 
     private int selectedColor;
     private DatabaseReference databaseReference;
+    private TextRecognizer textRecognizer;
+    private Uri imageUri;
+
+    private final ActivityResultLauncher<Intent> cameraLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == RESULT_OK) {
+                    if (imageUri != null) {
+                        processImageToText(imageUri);
+                    }
+                }
+            }
+    );
+
+    private final ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(
+            new ActivityResultContracts.RequestPermission(),
+            isGranted -> {
+                if (isGranted) {
+                    openCamera();
+                } else {
+                    Toast.makeText(this, "Camera permission is required to scan text", Toast.LENGTH_SHORT).show();
+                }
+            }
+    );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +89,7 @@ public class dataenter extends AppCompatActivity {
         currentDateTv = findViewById(R.id.current_date_tv);
         titleEt = findViewById(R.id.note_title_et);
         contentEt = findViewById(R.id.note_content_et);
+        ocr_scanner = findViewById(R.id.ocr_scanner);
 
         colorWhite = findViewById(R.id.color_white);
         colorRed = findViewById(R.id.color_red);
@@ -65,6 +104,10 @@ public class dataenter extends AppCompatActivity {
         colorBrown = findViewById(R.id.color_brown);
 
         selectedColor = Color.WHITE;
+
+        textRecognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS);
+
+        ocr_scanner.setOnClickListener(v -> requestPermissionLauncher.launch(Manifest.permission.CAMERA));
 
 
         SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd, yyyy h:mm a", Locale.getDefault());
@@ -148,5 +191,60 @@ public class dataenter extends AppCompatActivity {
                         .addOnFailureListener(e -> Toast.makeText(dataenter.this, "Failed to save: " + e.getMessage(), Toast.LENGTH_SHORT).show());
             }
         });
+    }
+
+    private void openCamera() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                Toast.makeText(this, "Error creating file", Toast.LENGTH_SHORT).show();
+            }
+            if (photoFile != null) {
+                imageUri = FileProvider.getUriForFile(this,
+                        getApplicationContext().getPackageName() + ".fileprovider",
+                        photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                cameraLauncher.launch(takePictureIntent);
+            }
+        } else {
+            Toast.makeText(this, "No camera app found", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private File createImageFile() throws IOException {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        return File.createTempFile(imageFileName, ".jpg", storageDir);
+    }
+
+    private void processImageToText(Uri uri) {
+        try {
+            InputImage image = InputImage.fromFilePath(this, uri);
+            textRecognizer.process(image)
+                    .addOnSuccessListener(visionText -> {
+                        StringBuilder sb = new StringBuilder();
+                        for (Text.TextBlock block : visionText.getTextBlocks()) {
+                            String blockText = block.getText();
+                            String lowerText = blockText.toLowerCase();
+                            if (!lowerText.contains("galaxy") && !lowerText.contains("shot with")) {
+                                sb.append(blockText).append(" ");
+                            }
+                        }
+
+                        String resultText = sb.toString().trim();
+                        if (!resultText.isEmpty()) {
+                            contentEt.append("\n" + resultText);
+                        } else {
+                            Toast.makeText(this, "No text detected", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnFailureListener(e -> Toast.makeText(this, "Failed to recognize text: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+        } catch (IOException e) {
+            Toast.makeText(this, "Failed to load image", Toast.LENGTH_SHORT).show();
+        }
     }
 }

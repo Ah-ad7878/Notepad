@@ -22,9 +22,20 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Back"
+            android:contentDescription="@string/back_btn_description"
             android:src="@android:drawable/ic_menu_revert"
             app:tint="@color/black" />
+
+        <ImageButton
+            android:id="@+id/ocr_scanner"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/baseline_camera_alt_24"
+            android:background="@color/white"
+            android:contentDescription="@string/camera_btn_description"
+            app:tint="@color/black"
+            />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/save_btn"
