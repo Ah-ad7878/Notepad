@@ -6,8 +6,6 @@ A modern, intuitive, and feature-rich Android application designed to help users
 
 ## 🌟 Key Features
 
-* **Multi-Format Document Export (New in v1.3.0):** Convert and export notes directly to **PDF** and **DOCX (Microsoft Word)** formats using native graphics and Apache POI.
-* **Instant Document Sharing (New in v1.3.0):** Seamlessly share exported files via WhatsApp, Gmail, or cloud storage using Android's native `Share Intent` and `FileProvider`.
 * **Automated Account Cleanup (New in v1.3.0):** Enforces data privacy and system hygiene by automatically purging accounts and associated data after 30 days of inactivity.
 * **Self-Service Password Recovery (New in v1.3.0):** Dedicated Forget Password module that sends instant password reset links to registered email addresses via Firebase Authentication.
 * **Secure User Authentication:** Sleek Sign-Up and Login screens with real-time input validation and Firebase Authentication integration.
