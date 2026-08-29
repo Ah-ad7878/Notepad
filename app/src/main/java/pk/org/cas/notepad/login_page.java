@@ -26,7 +26,7 @@ public class login_page extends AppCompatActivity {
 
     EditText email_et, password_et;
     Button login_btn;
-    TextView signup_tv;
+    TextView signup_tv, forget_password;
     FirebaseAuth mAuth;
     CheckBox remember_me;
 
@@ -56,6 +56,14 @@ public class login_page extends AppCompatActivity {
         remember_me = findViewById(R.id.remember_me);
         call_btn = findViewById(R.id.call_btn_login);
         biometric_btn = findViewById(R.id.biometric_login_btn);
+        forget_password = findViewById(R.id.forgot_password_tv);
+
+        forget_password.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(login_page.this, forget_password.class));
+            }
+        });
 
         sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -66,9 +74,8 @@ public class login_page extends AppCompatActivity {
             email_et.setText(sharedPreferences.getString(KEY_EMAIL, ""));
             password_et.setText(sharedPreferences.getString(KEY_PASS, ""));
             remember_me.setChecked(true);
-            
-            // Auto-trigger biometric only if we have a saved password
-            // If it was a Google login, we only have the email, so we don't auto-login
+
+
             if (mAuth.getCurrentUser() != null && !password_et.getText().toString().isEmpty()) {
                 new android.os.Handler(android.os.Looper.getMainLooper()).postDelayed(() -> {
                     if (!isFinishing() && !isDestroyed()) {
@@ -77,7 +84,7 @@ public class login_page extends AppCompatActivity {
                 }, 500);
             }
         }
-        
+
         checkBiometricCapability();
 
         call_btn.setOnClickListener(v -> {
@@ -120,7 +127,7 @@ public class login_page extends AppCompatActivity {
                             if (task.getException() != null) {
                                 String rawMessage = task.getException().getMessage();
                                 errorMsg += ": " + rawMessage;
-                                
+
                                 // If credentials are bad, clear the saved ones to avoid auto-filling bad data
                                 if (rawMessage != null && (rawMessage.contains("password") || rawMessage.contains("no user record"))) {
                                     editor.remove(KEY_PASS);

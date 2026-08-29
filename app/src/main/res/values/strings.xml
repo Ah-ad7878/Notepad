@@ -19,4 +19,8 @@
     <string name="update">Update</string>
     <string name="biometricfinger_text">BiometricFinger</string>
     <string name="no_date">No date</string>
+    <string name="forget_page_description">Enter your registered email below to receive password reset instructions.</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="back_to_login">Back to Login</string>
+    <string name="send_reset_link">Send Reset Link</string>
 </resources>
