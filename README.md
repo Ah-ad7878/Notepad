@@ -18,8 +18,6 @@ A modern, intuitive, and feature-rich Android application designed to help users
 ## 🚀 What's New in Version 1.3.0
 
 * 🔑 **Forget Password Integration:** Built a dedicated `forget_password` activity with automated Firebase password reset emails and custom spam-folder warning dialogs.
-* 📄 **PDF & DOCX Generator:** Integrated native `PdfDocument` and Apache POI (`poi-ooxml`) to convert text notes into shareable document formats.
-* 📤 **Secure File Sharing:** Configured `FileProvider` architecture in `AndroidManifest.xml` to handle secure cross-app file transfers.
 * 👆 **Biometric UI & Persistence:** Added standalone rounded biometric trigger button and auto-prompt logic linked with saved user preferences.
 * 🧹 **Inactive Account Cleanup:** Implemented 30-day account auto-deletion logic for enhanced database security and privacy management.
 * 🐛 **Bug Fixes & Optimizations:** Resolved file path permissions for Android 11+ devices, fixed SDK target issues, and optimized memory management during heavy document generation.
