@@ -32,7 +32,7 @@ public class nextpage extends AppCompatActivity {
 
     RecyclerView notes_rv;
     ExtendedFloatingActionButton add_note_fab;
-    ImageButton logout_btn,customer;
+    ImageButton logout_btn,customer,about;
 
     SearchView search_et;
     List<Notes> notesList;
@@ -56,6 +56,7 @@ public class nextpage extends AppCompatActivity {
         search_et = findViewById(R.id.search_et);
         logout_btn = findViewById(R.id.logout_btn);
         customer = findViewById(R.id.customer_care);
+        about = findViewById(R.id.about_app);
 
 
         customer.setOnClickListener(view -> {

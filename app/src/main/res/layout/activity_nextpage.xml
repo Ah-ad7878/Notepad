@@ -36,16 +36,29 @@
                     android:textSize="32sp" />
 
                 <ImageButton
+                    android:id="@+id/about_app"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="2dp"
+                    android:layout_toStartOf="@id/customer_care"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="10dp"
+                    android:src="@drawable/outline_chat_info_24"
+                    tools:ignore="ContentDescription" />
+
+                <ImageButton
                     android:id="@+id/customer_care"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_centerVertical="true"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="2dp"
                     android:layout_toStartOf="@id/logout_btn"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:padding="10dp"
                     android:src="@drawable/outline_call_24"
                     tools:ignore="ContentDescription" />
+
 
                 <ImageButton
                     android:id="@+id/logout_btn"

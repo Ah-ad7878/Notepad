@@ -8,7 +8,7 @@
     <string name="title_hint">Title</string>
     <string name="content_hint">Start typing...</string>
     <string name="save">Save</string>
-    <string name="app_description">Capture your thoughts, ideas, and tasks in one place.</string>
+    <string name="app_description">Notepad is a simple, secure, and intuitive workspace for your daily ideas and task lists. Easily organize your thoughts with custom color palettes, quickly search through saved entries, and keep your data safe with Firebase authentication and quick biometric login.</string>
     <string name="create_account">Create Account</string>
     <string name="sign_up_desc">Join us to keep your notes organized and safe.</string>
     <string name="full_name">Full Name</string>
@@ -23,4 +23,9 @@
     <string name="forgot_password">Forgot Password?</string>
     <string name="back_to_login">Back to Login</string>
     <string name="send_reset_link">Send Reset Link</string>
+    <string name="about_app">About App</string>
+    <string name="version">Version v1.3.0</string>
+    <string name="developed_by">Developed by</string>
+    <string name="dev_name">Ahmad Salahuddin</string>
+    <string name="contact_us">Contact Us</string>
 </resources>
