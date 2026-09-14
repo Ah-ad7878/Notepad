@@ -138,6 +138,17 @@
                 app:backgroundTint="@color/btn_blue"
                 app:cornerRadius="12dp" />
 
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="12dp"
+                android:visibility="gone"
+                app:indicatorColor="@color/btn_blue"
+                app:trackColor="@color/white"
+                app:trackThickness="4dp" />
+
 
             <TextView
                 android:id="@+id/login_tv"

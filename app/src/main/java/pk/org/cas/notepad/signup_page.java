@@ -3,8 +3,10 @@ package pk.org.cas.notepad;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +19,8 @@ public class signup_page extends AppCompatActivity {
     EditText name_et, email_et, password_et;
     Button signup_btn;
     TextView login_tv;
+
+    ProgressBar progressBar;
     FirebaseAuth mAuth;
 
     private static final String PREF_NAME = "login_pref";
@@ -36,6 +40,7 @@ public class signup_page extends AppCompatActivity {
         password_et = findViewById(R.id.password_et);
         signup_btn = findViewById(R.id.signup_btn);
         login_tv = findViewById(R.id.login_tv);
+        progressBar = findViewById(R.id.progressBar);
 
         signup_btn.setOnClickListener(v -> {
             String email = email_et.getText().toString().trim();
@@ -51,8 +56,14 @@ public class signup_page extends AppCompatActivity {
                 return;
             }
 
+            progressBar.setVisibility(View.VISIBLE);
+            signup_btn.setEnabled(false);
+
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(signup_page.this, task -> {
+                        progressBar.setVisibility(View.GONE);
+                        signup_btn.setEnabled(true);
+
                         if (task.isSuccessful()) {
                             // Save credentials so biometric works immediately
                             getSharedPreferences(PREF_NAME, MODE_PRIVATE).edit()

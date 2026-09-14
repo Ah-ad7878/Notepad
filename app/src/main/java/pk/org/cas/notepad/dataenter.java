@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -28,8 +29,12 @@ import android.Manifest;
 import android.net.Uri;
 import androidx.core.content.FileProvider;
 import android.os.Environment;
+import android.app.ProgressDialog;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -48,6 +53,7 @@ public class dataenter extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private TextRecognizer textRecognizer;
     private Uri imageUri;
+    private ProgressDialog progressDialog;
 
     private final ActivityResultLauncher<Intent> cameraLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -78,9 +84,9 @@ public class dataenter extends AppCompatActivity {
 
         String uid = FirebaseAuth.getInstance().getUid();
         if (uid != null) {
-            databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(uid).child("Notes");
+            databaseReference = FirebaseDatabase.getInstance().getReference("notes").child(uid);
         } else {
-            databaseReference = FirebaseDatabase.getInstance().getReference("Notes");
+            databaseReference = FirebaseDatabase.getInstance().getReference("notes");
         }
 
         mainLayout = findViewById(R.id.main_layout);
@@ -106,6 +112,9 @@ public class dataenter extends AppCompatActivity {
         selectedColor = Color.WHITE;
 
         textRecognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS);
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Scanning text...");
+        progressDialog.setCancelable(false);
 
         ocr_scanner.setOnClickListener(v -> requestPermissionLauncher.launch(Manifest.permission.CAMERA));
 
@@ -223,28 +232,75 @@ public class dataenter extends AppCompatActivity {
 
     private void processImageToText(Uri uri) {
         try {
+            progressDialog.show();
             InputImage image = InputImage.fromFilePath(this, uri);
             textRecognizer.process(image)
                     .addOnSuccessListener(visionText -> {
-                        StringBuilder sb = new StringBuilder();
-                        for (Text.TextBlock block : visionText.getTextBlocks()) {
-                            String blockText = block.getText();
-                            String lowerText = blockText.toLowerCase();
-                            if (!lowerText.contains("galaxy") && !lowerText.contains("shot with")) {
-                                sb.append(blockText).append(" ");
-                            }
+                        progressDialog.dismiss();
+                        List<Text.TextBlock> blocks = new ArrayList<>(visionText.getTextBlocks());
+
+                        if (blocks.isEmpty()) {
+                            Toast.makeText(this, "No text detected", Toast.LENGTH_SHORT).show();
+                            return;
                         }
 
-                        String resultText = sb.toString().trim();
+                        // Improved Sorting: Sort by Top, then Left for lines on the same level
+                        Collections.sort(blocks, (b1, b2) -> {
+                            int top1 = (b1.getBoundingBox() != null) ? b1.getBoundingBox().top : 0;
+                            int top2 = (b2.getBoundingBox() != null) ? b2.getBoundingBox().top : 0;
+                            if (Math.abs(top1 - top2) < 25) { // Same line threshold
+                                int left1 = (b1.getBoundingBox() != null) ? b1.getBoundingBox().left : 0;
+                                int left2 = (b2.getBoundingBox() != null) ? b2.getBoundingBox().left : 0;
+                                return Integer.compare(left1, left2);
+                            }
+                            return Integer.compare(top1, top2);
+                        });
+
+                        StringBuilder fullText = new StringBuilder();
+                        int imageHeight = image.getHeight();
+
+                        for (Text.TextBlock block : blocks) {
+                            // Precise Watermark Filtering
+                            if (block.getBoundingBox() != null && imageHeight > 0) {
+                                float bottomPercent = (float) block.getBoundingBox().bottom / imageHeight;
+                                if (bottomPercent > 0.93) {
+                                    String lowerText = block.getText().toLowerCase();
+                                    if (lowerText.contains("galaxy") || lowerText.contains("shot") || lowerText.contains("camera")) {
+                                        continue;
+                                    }
+                                }
+                            }
+
+                            for (Text.Line line : block.getLines()) {
+                                String lineText = line.getText().trim();
+                                if (!lineText.isEmpty()) {
+                                    fullText.append(lineText).append("\n");
+                                }
+                            }
+                            fullText.append("\n");
+                        }
+
+                        String resultText = fullText.toString().trim();
                         if (!resultText.isEmpty()) {
-                            contentEt.append("\n" + resultText);
+                            if (contentEt.getText().length() > 0) {
+                                contentEt.append("\n\n" + resultText);
+                            } else {
+                                contentEt.append(resultText);
+                            }
+                            Toast.makeText(this, "Scan Complete", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(this, "No text detected", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, "No clear text found", Toast.LENGTH_SHORT).show();
                         }
                     })
-                    .addOnFailureListener(e -> Toast.makeText(this, "Failed to recognize text: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                    .addOnFailureListener(e -> {
+                        progressDialog.dismiss();
+                        Toast.makeText(this, "Failed to recognize text: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    });
         } catch (IOException e) {
+            progressDialog.dismiss();
             Toast.makeText(this, "Failed to load image", Toast.LENGTH_SHORT).show();
         }
     }
+
+    // Removed getString method as it's now integrated and improved inside processImageToText
 }

@@ -1,11 +1,12 @@
 package pk.org.cas.notepad;
 
 
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -13,9 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
-
-import android.widget.ImageButton;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,7 +30,8 @@ public class nextpage extends AppCompatActivity {
 
     RecyclerView notes_rv;
     ExtendedFloatingActionButton add_note_fab;
-    ImageButton logout_btn,customer,about;
+    ImageButton logout_btn, customer, about;
+    ProgressBar progressBar;
 
     SearchView search_et;
     List<Notes> notesList;
@@ -46,9 +45,9 @@ public class nextpage extends AppCompatActivity {
 
         String uid = FirebaseAuth.getInstance().getUid();
         if (uid != null) {
-            databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(uid).child("Notes");
+            databaseReference = FirebaseDatabase.getInstance().getReference("notes").child(uid);
         } else {
-            databaseReference = FirebaseDatabase.getInstance().getReference("Notes");
+            databaseReference = FirebaseDatabase.getInstance().getReference("notes");
         }
 
         add_note_fab = findViewById(R.id.add_note_fab);
@@ -57,11 +56,12 @@ public class nextpage extends AppCompatActivity {
         logout_btn = findViewById(R.id.logout_btn);
         customer = findViewById(R.id.customer_care);
         about = findViewById(R.id.about_app);
+        progressBar = findViewById(R.id.progressBar);
 
         about.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(nextpage.this,About_App.class));
+                startActivity(new Intent(nextpage.this, About_App.class));
             }
         });
 
@@ -78,7 +78,7 @@ public class nextpage extends AppCompatActivity {
         notesList = new ArrayList<>();
         adaptor = new Adaptor(notesList);
 
-        notes_rv.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        notes_rv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         notes_rv.setAdapter(adaptor);
 
         loadNotes();
@@ -110,9 +110,11 @@ public class nextpage extends AppCompatActivity {
     }
 
     private void loadNotes() {
+        progressBar.setVisibility(View.VISIBLE);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                progressBar.setVisibility(View.GONE);
                 notesList.clear();
                 if (snapshot.exists()) {
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
@@ -123,26 +125,26 @@ public class nextpage extends AppCompatActivity {
                         }
                     }
                 }
-                
-               
+
 
                 adaptor.filterList(notesList);
-                
+
 
                 if (!notesList.isEmpty()) {
                     notes_rv.scrollToPosition(0);
                 }
-                
+
 
                 android.util.Log.d("Notepad", "Loaded notes count: " + notesList.size());
-                android.widget.Toast.makeText(nextpage.this, 
-                    "Notes loaded: " + notesList.size(), android.widget.Toast.LENGTH_SHORT).show();
+                android.widget.Toast.makeText(nextpage.this,
+                        "Notes loaded: " + notesList.size(), android.widget.Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                android.widget.Toast.makeText(nextpage.this, 
-                    "Database Error: " + error.getMessage(), android.widget.Toast.LENGTH_LONG).show();
+                progressBar.setVisibility(View.GONE);
+                android.widget.Toast.makeText(nextpage.this,
+                        "Database Error: " + error.getMessage(), android.widget.Toast.LENGTH_LONG).show();
             }
         });
     }

@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ public class login_page extends AppCompatActivity {
     EditText email_et, password_et;
     Button login_btn;
     TextView signup_tv, forget_password;
+    ProgressBar progressBar;
     FirebaseAuth mAuth;
     CheckBox remember_me;
 
@@ -57,6 +59,8 @@ public class login_page extends AppCompatActivity {
         call_btn = findViewById(R.id.call_btn_login);
         biometric_btn = findViewById(R.id.biometric_login_btn);
         forget_password = findViewById(R.id.forgot_password_tv);
+        progressBar = findViewById(R.id.progressBar);
+
 
         forget_password.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,6 +100,9 @@ public class login_page extends AppCompatActivity {
         });
 
         login_btn.setOnClickListener(v -> {
+            progressBar.setVisibility(View.VISIBLE);
+            login_btn.setEnabled(false);
+
             String email = email_et.getText().toString().trim();
             String password = password_et.getText().toString().trim();
 
@@ -106,6 +113,9 @@ public class login_page extends AppCompatActivity {
 
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(login_page.this, task -> {
+                        progressBar.setVisibility(View.GONE);
+                        login_btn.setEnabled(true);
+
                         if (task.isSuccessful()) {
                             if (remember_me.isChecked()) {
                                 editor.putString(KEY_EMAIL, email);
@@ -128,8 +138,11 @@ public class login_page extends AppCompatActivity {
                                 String rawMessage = task.getException().getMessage();
                                 errorMsg += ": " + rawMessage;
 
-                                // If credentials are bad, clear the saved ones to avoid auto-filling bad data
-                                if (rawMessage != null && (rawMessage.contains("password") || rawMessage.contains("no user record"))) {
+                                
+                                if (rawMessage != null && (rawMessage.contains("password") || 
+                                        rawMessage.contains("no user record") || 
+                                        rawMessage.contains("credential") || 
+                                        rawMessage.toLowerCase().contains("invalid_login_credentials"))) {
                                     editor.remove(KEY_PASS);
                                     editor.apply();
                                 }

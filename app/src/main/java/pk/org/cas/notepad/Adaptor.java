@@ -81,12 +81,12 @@ public class Adaptor extends RecyclerView.Adapter<Adaptor.ProductViewHolder>{
                 if (noteId != null) {
                     String uid = FirebaseAuth.getInstance().getUid();
                     if (uid != null) {
-                        FirebaseDatabase.getInstance().getReference("Users").child(uid).child("Notes")
+                        FirebaseDatabase.getInstance().getReference("notes").child(uid)
                                 .child(noteId).removeValue()
                                 .addOnSuccessListener(aVoid -> Toast.makeText(view.getContext(), "Note Deleted", Toast.LENGTH_SHORT).show())
                                 .addOnFailureListener(e -> Toast.makeText(view.getContext(), "Delete Failed", Toast.LENGTH_SHORT).show());
                     } else {
-                        FirebaseDatabase.getInstance().getReference("Notes")
+                        FirebaseDatabase.getInstance().getReference("notes")
                                 .child(noteId).removeValue()
                                 .addOnSuccessListener(aVoid -> Toast.makeText(view.getContext(), "Note Deleted", Toast.LENGTH_SHORT).show())
                                 .addOnFailureListener(e -> Toast.makeText(view.getContext(), "Delete Failed", Toast.LENGTH_SHORT).show());

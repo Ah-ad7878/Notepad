@@ -58,7 +58,7 @@ public class datashow extends AppCompatActivity {
 
         String uid = FirebaseAuth.getInstance().getUid();
         if (uid != null) {
-            databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(uid).child("Notes");
+            databaseReference = FirebaseDatabase.getInstance().getReference("notes").child(uid);
         }
 
         show_back_btn.setOnClickListener(view -> finish());
