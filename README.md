@@ -6,17 +6,18 @@ A modern, intuitive, and feature-rich Android application designed to help users
 
 ## 🌟 Key Features
 
-* **Camera OCR Text Scanner (New in v1.3.0):** Scan printed text or documents using the device camera and instantly convert them into editable note content via Google ML Kit.
+* **Camera OCR Text Scanner (New in v1.5.0):** Scan printed text or documents using the device camera and instantly convert them into editable note content via Google ML Kit.
 * **Self-Service Password Recovery:** Dedicated Forget Password module that sends instant password reset links to registered email addresses via Firebase Authentication.
 * **Automated Account Cleanup:** Enforces data privacy and system hygiene by automatically purging accounts and associated data after 30 days of inactivity.
 * **Secure User Authentication:** Sleek Sign-Up and Login screens with real-time input validation and Firebase Authentication integration.
 * **Biometric Authentication:** One-touch fingerprint login integration using the Android `androidx.biometric` API paired with custom oval drawables for rapid, secure app access.
 * **Integrated Customer Support:** Direct in-app support service allowing users to submit queries, report issues, or connect via support channels instantly.
 * **Modern Material UI/UX:** Refined layout featuring custom gradients, soft elevation card shadows, rounded action buttons, and customizable pastel note backgrounds.
+* share notes by press on share Button
 
 ---
 
-## 🚀 What's New in Version 1.3.0
+## 🚀 What's New in Version 1.5.0
 
 * 📷 **ML Kit OCR Integration:** Added on-device `TextRecognition` pipeline paired with `FileProvider` to capture high-definition document photos and extract text seamlessly into notes.
 * 🔑 **Forget Password Flow:** Built a dedicated `forget_password` activity with automated Firebase password reset emails and custom spam-folder warning dialogs.
