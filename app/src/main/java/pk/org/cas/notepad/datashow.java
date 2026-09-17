@@ -1,28 +1,40 @@
 package pk.org.cas.notepad;
 
+import android.annotation.SuppressLint;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
 public class datashow extends AppCompatActivity {
 
-    ImageButton show_back_btn;
+    ImageButton show_back_btn,share_btn;
     Button update_btn;
     EditText show_note_title_tv, show_note_content_tv;
     TextView show_note_date_tv;
@@ -31,6 +43,75 @@ public class datashow extends AppCompatActivity {
     DatabaseReference databaseReference;
     String noteId;
     int selectedColor;
+
+    private Bitmap createBitmapFromCustomLayout(String title, String content, String date, int color) {
+        @SuppressLint("InflateParams") View shareView = getLayoutInflater().inflate(R.layout.image_card, null);
+
+        TextView tvTitle = shareView.findViewById(R.id.share_title_tv);
+        TextView tvDate = shareView.findViewById(R.id.share_date_tv);
+        TextView tvContent = shareView.findViewById(R.id.share_content_tv);
+        LinearLayout bgLayout = shareView.findViewById(R.id.card_root);
+
+        tvTitle.setText(title);
+        tvDate.setText(date);
+        tvContent.setText(content);
+
+        if (color != 0) {
+            bgLayout.setBackgroundColor(color);
+        } else {
+            bgLayout.setBackgroundColor(Color.WHITE);
+        }
+
+        shareView.measure(
+                View.MeasureSpec.makeMeasureSpec(1080, View.MeasureSpec.EXACTLY),
+                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+        );
+        shareView.layout(0, 0, shareView.getMeasuredWidth(), shareView.getMeasuredHeight());
+
+        Bitmap bitmap = Bitmap.createBitmap(shareView.getMeasuredWidth(), shareView.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        shareView.draw(canvas);
+
+        return bitmap;
+    }
+
+    public void shareNoteAsImage() {
+        String title = show_note_title_tv.getText().toString();
+        String content = show_note_content_tv.getText().toString();
+        String date = show_note_date_tv.getText().toString();
+
+        Bitmap bitmap = createBitmapFromCustomLayout(title, content, date, selectedColor);
+
+        try {
+            File cachePath = new File(getCacheDir(), "images");
+            cachePath.mkdirs();
+            File filePath = new File(cachePath, "note_card.png");
+            FileOutputStream stream = new FileOutputStream(filePath);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            stream.close();
+
+            Uri imageUri = FileProvider.getUriForFile(
+                    this,
+                    getPackageName() + ".fileprovider",
+                    filePath
+            );
+
+            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+            shareIntent.setType("image/png");
+            shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
+            shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            shareIntent.setPackage("com.whatsapp");
+
+            startActivity(shareIntent);
+
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(this, "WhatsApp not installed", Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Picture not shared", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +124,7 @@ public class datashow extends AppCompatActivity {
         show_note_title_tv = findViewById(R.id.show_note_title_tv);
         show_note_date_tv = findViewById(R.id.show_note_date_tv);
         show_note_content_tv = findViewById(R.id.show_note_content_tv);
+        share_btn = findViewById(R.id.share_btn);
 
         colorWhite = findViewById(R.id.show_color_white);
         colorRed = findViewById(R.id.show_color_red);
@@ -62,6 +144,12 @@ public class datashow extends AppCompatActivity {
         }
 
         show_back_btn.setOnClickListener(view -> finish());
+        share_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shareNoteAsImage();
+            }
+        });
 
         Intent intent = getIntent();
         if (intent != null) {

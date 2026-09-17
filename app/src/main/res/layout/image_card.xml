@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/share_card_root"
+    android:layout_width="350dp"
+    android:layout_height="wrap_content"
+    android:elevation="8dp"
+    app:cardCornerRadius="16dp"
+    app:cardUseCompatPadding="false">
+
+    <LinearLayout
+        android:id="@+id/card_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:id="@+id/share_title_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/share_date_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:textColor="#666666"
+            android:textSize="12sp" />
+
+
+        <TextView
+            android:id="@+id/share_content_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:lineSpacingExtra="4dp"
+            android:textColor="#222222"
+            android:textSize="15sp" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="20dp"
+            android:text="@string/shared_via_notepad"
+            android:textColor="#888888"
+            android:textSize="11sp"
+            android:textStyle="italic" />
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

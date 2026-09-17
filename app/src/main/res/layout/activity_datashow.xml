@@ -39,6 +39,17 @@
             android:textStyle="bold"
             android:textAllCaps="false" />
 
+        <ImageButton
+            android:id="@+id/share_btn"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="end"
+            android:layout_marginEnd="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Share"
+            android:src="@android:drawable/ic_menu_share"
+            app:tint="@color/black" />
+
     </androidx.appcompat.widget.Toolbar>
 
     <ScrollView

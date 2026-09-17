@@ -8,7 +8,7 @@
     <string name="title_hint">Title</string>
     <string name="content_hint">Start typing...</string>
     <string name="save">Save</string>
-    <string name="app_description">Notepad is a simple, secure, and intuitive workspace for your daily ideas and task lists. Easily organize your thoughts with custom color palettes, quickly search through saved entries, and keep your data safe with Firebase authentication and quick biometric login.</string>
+    <string name="app_description">Notepad is a simple, secure, and intuitive workspace designed to effortlessly capture your daily ideas, thoughts, and task lists. Your personal notes stay fully protected through robust Firebase Cloud Authentication and quick biometric login, supported by smooth progress indicators across the Login, Sign-Up, and Main screens to ensure a seamless navigation experience. You can easily organize entries using custom color palettes, perform instant searches, and quickly convert physical text into digital notes using the built-in OCR scanner. Furthermore, the newly added sharing system allows you to convert any note into a styled card image and share it directly with anyone on WhatsApp with a single click of the Share button.</string>
     <string name="create_account">Create Account</string>
     <string name="splash_des">"Capture your daily thoughts, ideas, and tasks instantly in one secure place."</string>
     <string name="sign_up_desc">Join us to keep your notes organized and safe.</string>
@@ -31,4 +31,5 @@
     <string name="contact_us">Contact Us</string>
     <string name="back_btn_description">Back</string>
     <string name="camera_btn_description">Camera</string>
+    <string name="shared_via_notepad">Shared via Notepad</string>
 </resources>
