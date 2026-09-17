@@ -1,4 +1,4 @@
-# 📝 Notepad App (v1.3.0)
+# 📝 Notepad App (v1.5.0)
 
 A modern, intuitive, and feature-rich Android application designed to help users capture thoughts, manage tasks, and keep notes organized seamlessly. Built using Java and XML in Android Studio following modern Material Design guidelines.
 
