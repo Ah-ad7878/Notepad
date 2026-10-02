@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.OvershootInterpolator;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -71,6 +72,23 @@ public class Adaptor extends RecyclerView.Adapter<Adaptor.ProductViewHolder>{
             intent.putExtra("color", notes.getColour());
             context.startActivity(intent);
         });
+
+        holder.itemView.setTranslationX(-300f);
+        holder.itemView.setScaleX(0.85f);
+        holder.itemView.setScaleY(0.85f);
+        holder.itemView.setAlpha(0f);
+        holder.itemView.setRotation(-3f);
+
+        holder.itemView.animate()
+                .translationX(0f)
+                .scaleX(1.0f)
+                .scaleY(1.0f)
+                .alpha(1.0f)
+                .rotation(0f)
+                .setDuration(700)
+                .setStartDelay(position * 70L)
+                .setInterpolator(new OvershootInterpolator(1.3f))
+                .start();
 
         holder.itemView.setOnLongClickListener(view -> {
             int currentPosition = holder.getBindingAdapterPosition();
