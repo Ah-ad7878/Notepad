@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/note_card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="6dp"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="0dp"
-    app:strokeWidth="1dp"
-    app:strokeColor="#10000000">
+    android:layout_marginHorizontal="6dp"
+    android:layout_marginVertical="6dp"
+    app:cardCornerRadius="18dp"
+    app:cardElevation="3dp"
+    app:strokeColor="#18000000"
+    app:strokeWidth="1dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="18dp">
 
         <TextView
             android:id="@+id/note_title_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
             android:fontFamily="sans-serif-medium"
-            android:textColor="@color/black"
-            android:textSize="17sp"
-            android:textStyle="bold"
             android:maxLines="2"
-            android:ellipsize="end"/>
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/note_desc_tv"
@@ -34,21 +34,21 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:ellipsize="end"
-            android:maxLines="8"
+            android:lineSpacingExtra="3dp"
+            android:maxLines="6"
             android:textColor="@color/gray_dark"
-            android:textSize="14sp"
-            android:lineSpacingExtra="2dp"/>
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/note_date_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginTop="12dp"
-            android:alpha="0.7"
+            android:layout_marginTop="14dp"
+            android:alpha="0.8"
+            android:fontFamily="sans-serif-medium"
             android:textColor="@color/gray_dark"
-            android:textSize="11sp"
-            android:fontFamily="sans-serif-light"/>
+            android:textSize="11sp" />
 
     </LinearLayout>
 

@@ -1,34 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#1A1C1E</color>
+    <!-- Modern Brand & System Colors -->
+    <color name="black">#0F172A</color>
     <color name="white">#FFFFFF</color>
-    <color name="blue">#D1E4FF</color>
-    <color name="btn_blue">#005FB0</color>
-    <color name="gray_light">#F8F9FA</color>
-    <color name="gray_dark">#44474E</color>
-    <color name="accent_orange">#FFB900</color>
+    <color name="blue">#EFF6FF</color>
+    <color name="btn_blue">#3B82F6</color>
+    <color name="btn_blue_dark">#2563EB</color>
+    <color name="gray_light">#F8FAFC</color>
+    <color name="gray_dark">#64748B</color>
+    <color name="gray_border">#E2E8F0</color>
+    <color name="accent_orange">#F59E0B</color>
 
-    <!-- Modern Pastel Note Colors -->
+    <!-- Header Gradient Colors -->
+    <color name="start_color">#4F46E5</color>
+    <color name="end_color">#06B6D4</color>
+
+    <!-- Modern Pastel Note Cards Colors -->
     <color name="note_white">#FFFFFF</color>
-    <color name="note_red">#FFDAD6</color>
-    <color name="note_yellow">#FFF1AD</color>
-    <color name="note_pink">#FFD8E4</color>
-    <color name="note_green">#D1E9CF</color>
-    <color name="note_blue">#D1E4FF</color>
-    <color name="note_purple">#E9DDFF</color>
-    <color name="note_orange">#FFDCC0</color>
-    <color name="granite">#506A67</color>
-    <color name="Aqua">#94D9C6</color>
-    <color name="brown">#7e9c5a</color>
+    <color name="note_red">#FFEDEC</color>
+    <color name="note_yellow">#FFF9DB</color>
+    <color name="note_pink">#FCE7F3</color>
+    <color name="note_green">#E6F4EA</color>
+    <color name="note_blue">#E0F2FE</color>
+    <color name="note_purple">#F3E8FF</color>
+    <color name="note_orange">#FFEDD5</color>
+    <color name="granite">#E2E8F0</color>
+    <color name="Aqua">#CCFBF1</color>
+    <color name="brown">#FEF3C7</color>
 
-    <color name="surface_variant">#E1E2EC</color>
-    <color name="on_surface_variant">#44474E</color>
-    <color name="start_color">#8A2BE2</color>
-    <color name="end_color">#00BFFF</color>
+    <color name="surface_variant">#F1F5F9</color>
+    <color name="on_surface_variant">#64748B</color>
 
-    <color name="btn_solid">#3D73B2</color>
-    <color name="ripple_color">#40FFFFFF</color>
+    <color name="btn_solid">#2563EB</color>
+    <color name="ripple_color">#303B82F6</color>
 
-    <color name="call_btn">#878EAB</color>
-    
+    <color name="call_btn">#25D366</color>
 </resources>

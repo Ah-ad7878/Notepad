@@ -11,7 +11,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
+        android:background="@color/gray_light"
         app:elevation="0dp">
 
         <LinearLayout
@@ -19,8 +19,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingHorizontal="20dp"
-            android:paddingTop="35dp"
-            android:paddingBottom="8dp">
+            android:paddingTop="32dp"
+            android:paddingBottom="12dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -33,43 +33,46 @@
                     android:fontFamily="@font/noteame"
                     android:text="@string/my_notes"
                     android:textColor="@color/black"
-                    android:textSize="32sp" />
+                    android:textSize="32sp"
+                    android:textStyle="bold" />
 
                 <ImageButton
                     android:id="@+id/about_app"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
                     android:layout_centerVertical="true"
-                    android:layout_marginEnd="2dp"
+                    android:layout_marginEnd="6dp"
                     android:layout_toStartOf="@id/customer_care"
                     android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/about_app"
                     android:padding="10dp"
                     android:src="@drawable/outline_chat_info_24"
-                    tools:ignore="ContentDescription" />
+                    app:tint="@color/black" />
 
                 <ImageButton
                     android:id="@+id/customer_care"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
                     android:layout_centerVertical="true"
-                    android:layout_marginEnd="2dp"
+                    android:layout_marginEnd="6dp"
                     android:layout_toStartOf="@id/logout_btn"
                     android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/contact_us"
                     android:padding="10dp"
                     android:src="@drawable/outline_call_24"
-                    tools:ignore="ContentDescription" />
-
+                    app:tint="@color/call_btn" />
 
                 <ImageButton
                     android:id="@+id/logout_btn"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Logout"
+                    android:padding="10dp"
                     android:src="@android:drawable/ic_lock_power_off"
-                    app:tint="@color/black"
-                    android:contentDescription="Logout" />
+                    app:tint="#EF4444" />
             </RelativeLayout>
 
             <com.google.android.material.card.MaterialCardView
@@ -77,10 +80,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="16dp"
+                app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="25dp"
                 app:cardElevation="2dp"
-                app:strokeWidth="0dp"
-                app:cardBackgroundColor="@color/white">
+                app:strokeColor="@color/gray_border"
+                app:strokeWidth="1dp">
 
                 <androidx.appcompat.widget.SearchView
                     android:id="@+id/search_et"
@@ -88,9 +92,9 @@
                     android:layout_height="match_parent"
                     android:theme="@style/Theme.Notepad.SearchView"
                     app:iconifiedByDefault="false"
-                    app:queryHint="Search your notes"
-                    app:searchIcon="@android:drawable/ic_menu_search"
-                    app:queryBackground="@android:color/transparent" />
+                    app:queryBackground="@android:color/transparent"
+                    app:queryHint="@string/search_notes"
+                    app:searchIcon="@android:drawable/ic_menu_search" />
 
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
@@ -99,9 +103,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/notes_rv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:clipToPadding="false"
-        android:paddingHorizontal="10dp"
+        android:paddingHorizontal="12dp"
         android:paddingTop="8dp"
         android:paddingBottom="100dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
@@ -112,23 +116,24 @@
         android:layout_height="45dp"
         android:layout_gravity="center"
         android:visibility="gone"
-        app:indicatorColor="@color/black"
-        app:trackThickness="4dp" />
-
+        app:indicatorColor="@color/btn_blue" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/add_note_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_marginBottom="40dp"
-        android:layout_marginEnd="15dp"
-        android:textColor="@color/white"
-        android:textAllCaps="false"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="32dp"
         android:fontFamily="sans-serif-medium"
-        app:icon="@android:drawable/ic_input_add"
-        app:iconTint="@color/white"
+        android:text="@string/add_note"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="15sp"
         app:backgroundTint="@color/btn_blue"
-        app:elevation="6dp"/>
+        app:cornerRadius="28dp"
+        app:elevation="6dp"
+        app:icon="@android:drawable/ic_input_add"
+        app:iconTint="@color/white" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
