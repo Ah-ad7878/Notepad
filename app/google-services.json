@@ -1,37 +1,26 @@
 {
   "project_info": {
-    "project_number": "167779497115",
-    "firebase_url": "https://notepad-9ad6c-default-rtdb.firebaseio.com",
-    "project_id": "notepad-9ad6c",
-    "storage_bucket": "notepad-9ad6c.firebasestorage.app"
+    "project_number": "116969548579",
+    "project_id": "notepad-21952",
+    "storage_bucket": "notepad-21952.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:167779497115:android:459b937ef03b4502b7423e",
+        "mobilesdk_app_id": "1:116969548579:android:827b8f2b2a35c3096c3a96",
         "android_client_info": {
           "package_name": "pk.org.cas.notepad"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "167779497115-5nhdg8nr5ad2cvjuadlb2nd4vh3t9h0t.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCc-zCYnRUCKf3HG5vCWDSL-GRyky1JZ-Y"
+          "current_key": "AIzaSyBP6AuoLeE8_1iTOQs2fauSamiI3f7BxUU"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "167779497115-5nhdg8nr5ad2cvjuadlb2nd4vh3t9h0t.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }
