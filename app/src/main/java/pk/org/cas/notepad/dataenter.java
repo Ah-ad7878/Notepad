@@ -84,9 +84,9 @@ public class dataenter extends AppCompatActivity {
 
         String uid = FirebaseAuth.getInstance().getUid();
         if (uid != null) {
-            databaseReference = FirebaseDatabase.getInstance().getReference("notes").child(uid);
+            databaseReference = FirebaseDatabase.getInstance("https://notepad-21952-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("notes").child(uid);
         } else {
-            databaseReference = FirebaseDatabase.getInstance().getReference("notes");
+            databaseReference = FirebaseDatabase.getInstance("https://notepad-21952-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("notes");
         }
 
         mainLayout = findViewById(R.id.main_layout);
@@ -179,6 +179,10 @@ public class dataenter extends AppCompatActivity {
                 return;
             }
 
+            save_btn.setEnabled(false);
+            progressDialog.setMessage("Saving note...");
+            progressDialog.show();
+
             long time = System.currentTimeMillis();
             Intent intent = new Intent();
             intent.putExtra("title", title);
@@ -186,18 +190,48 @@ public class dataenter extends AppCompatActivity {
             intent.putExtra("color", selectedColor);
             intent.putExtra("time", time);
 
+            // Re-check database reference with current UID
+            String currentUid = FirebaseAuth.getInstance().getUid();
+            if (currentUid != null) {
+                databaseReference = FirebaseDatabase.getInstance("https://notepad-21952-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("notes").child(currentUid);
+            } else {
+                databaseReference = FirebaseDatabase.getInstance("https://notepad-21952-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("notes");
+            }
+
             // Save to Firebase
             String id = databaseReference.push().getKey();
             Notes note = new Notes(title, content, selectedColor, time);
             if (id != null) {
                 note.setId(id);
+
+                android.os.Handler timeoutHandler = new android.os.Handler(android.os.Looper.getMainLooper());
+                Runnable timeoutRunnable = () -> {
+                    if (progressDialog.isShowing()) {
+                        progressDialog.dismiss();
+                        save_btn.setEnabled(true);
+                        Toast.makeText(dataenter.this, "Connection Timeout! Could not connect to Firebase Realtime Database.\n\nPlease ensure:\n1. Realtime Database is created in Firebase Console.\n2. Database Rules are set to allow read/write.", Toast.LENGTH_LONG).show();
+                    }
+                };
+                timeoutHandler.postDelayed(timeoutRunnable, 8000);
+
                 databaseReference.child(id).setValue(note)
                         .addOnSuccessListener(aVoid -> {
-                            Toast.makeText(dataenter.this, "Note saved", Toast.LENGTH_SHORT).show();
+                            timeoutHandler.removeCallbacks(timeoutRunnable);
+                            progressDialog.dismiss();
+                            Toast.makeText(dataenter.this, "Note saved successfully", Toast.LENGTH_SHORT).show();
                             setResult(RESULT_OK, intent);
                             finish();
                         })
-                        .addOnFailureListener(e -> Toast.makeText(dataenter.this, "Failed to save: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                        .addOnFailureListener(e -> {
+                            timeoutHandler.removeCallbacks(timeoutRunnable);
+                            progressDialog.dismiss();
+                            save_btn.setEnabled(true);
+                            Toast.makeText(dataenter.this, "Failed to save: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        });
+            } else {
+                progressDialog.dismiss();
+                save_btn.setEnabled(true);
+                Toast.makeText(dataenter.this, "Error generating note ID", Toast.LENGTH_SHORT).show();
             }
         });
     }

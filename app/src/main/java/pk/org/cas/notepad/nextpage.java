@@ -45,9 +45,9 @@ public class nextpage extends AppCompatActivity {
 
         String uid = FirebaseAuth.getInstance().getUid();
         if (uid != null) {
-            databaseReference = FirebaseDatabase.getInstance().getReference("notes").child(uid);
+            databaseReference = FirebaseDatabase.getInstance("https://notepad-21952-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("notes").child(uid);
         } else {
-            databaseReference = FirebaseDatabase.getInstance().getReference("notes");
+            databaseReference = FirebaseDatabase.getInstance("https://notepad-21952-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("notes");
         }
 
         add_note_fab = findViewById(R.id.add_note_fab);

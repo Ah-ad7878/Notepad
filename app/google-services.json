@@ -2,7 +2,8 @@
   "project_info": {
     "project_number": "116969548579",
     "project_id": "notepad-21952",
-    "storage_bucket": "notepad-21952.firebasestorage.app"
+    "storage_bucket": "notepad-21952.firebasestorage.app",
+    "firebase_url": "https://notepad-21952-default-rtdb.asia-southeast1.firebasedatabase.app"
   },
   "client": [
     {
